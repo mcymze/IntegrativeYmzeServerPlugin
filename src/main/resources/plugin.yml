@@ -1,0 +1,27 @@
+name: IntegrativeYmzeServerPlugin
+version: 0.0.1
+main: dev.ekuinox.IntegrativeYmzeServerPlugin.Main
+api-version: "1.15"
+description: "Adds magic wand tool to specify freedom area"
+commands:
+  magicwand:
+    description: magic wand
+    usage: /magicwand
+permissions:
+  magicwand.*:
+    default: op
+    children:
+      magicwand.give: true
+      magicwand.check: true
+      magicwand.write: true
+      magicwand.read: true
+  magicwand.give:
+    default: op
+  magicwand.check:
+    default: true
+  magicwand.write:
+    default: true
+    children:
+      magicwand.read: true
+  magicwand.read:
+    default: true
