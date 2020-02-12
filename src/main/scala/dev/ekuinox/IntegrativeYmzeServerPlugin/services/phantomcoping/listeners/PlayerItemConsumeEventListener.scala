@@ -1,6 +1,7 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.{EventListener, Service}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.{Main => Plugin}
 import org.bukkit.Material
 import org.bukkit.entity.Player
@@ -8,7 +9,7 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.ItemStack
 
-class PlayerItemConsumeEventListener(plugin: Plugin) extends EventListener(plugin) {
+class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) extends EventListener {
   import PlayerItemConsumeEventListener._
   import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Permissions._
 
