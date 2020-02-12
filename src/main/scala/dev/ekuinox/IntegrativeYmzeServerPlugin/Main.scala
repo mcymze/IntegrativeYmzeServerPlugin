@@ -4,7 +4,8 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCop
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main extends JavaPlugin {
-  lazy val phantomCopeService = new PhantomCopeService(this)
+  implicit val self: Main = this
+  lazy val phantomCopeService = new PhantomCopeService
 
   override def onEnable(): Unit = {
     phantomCopeService.registerListeners()
