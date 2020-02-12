@@ -1,6 +1,6 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.phantomcoping.PhantomCopeService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main extends JavaPlugin {

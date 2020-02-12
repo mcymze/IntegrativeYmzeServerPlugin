@@ -1,4 +1,4 @@
-package dev.ekuinox.IntegrativeYmzeServerPlugin.phantomcoping
+package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.{Main => Plugin}
 
