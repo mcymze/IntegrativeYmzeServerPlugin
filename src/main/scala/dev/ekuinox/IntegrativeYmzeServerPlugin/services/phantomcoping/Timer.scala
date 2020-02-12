@@ -3,14 +3,18 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 import java.lang
 
 import org.bukkit.persistence.PersistentDataType
+import org.bukkit.scheduler.BukkitRunnable
+import collection.mutable.{Map => MutableMap}
 
 object Timer {
   private type BukkitPlayer = org.bukkit.entity.Player
 
   val NAMESPACED_KEY = "timer"
-  val PERSISTENT_DATA_CONTAINER_TYPE: PersistentDataType[lang.Byte, lang.Byte] = PersistentDataType.BYTE
+  val DATA_TYPE: PersistentDataType[String, String] = PersistentDataType.STRING
 
-  implicit class Player(player: BukkitPlayer)(implicit service: PhantomCopeService) {
+  val timers: collection.mutable.Map[BukkitPlayer, BukkitRunnable] = MutableMap[BukkitPlayer, BukkitRunnable]()
+
+  class Player(player: BukkitPlayer)(implicit service: PhantomCopeService) {
     private val container = player.getPersistentDataContainer
     private val namespacedKey = service.makeNamespacedKey(NAMESPACED_KEY)
 
@@ -18,13 +22,14 @@ object Timer {
      * Playerがファントムの追跡を解除できるか
      * @return Boolean
      */
-    def canCope: Boolean = container.has(namespacedKey, PERSISTENT_DATA_CONTAINER_TYPE)
+    def canCope: Boolean = container.has(namespacedKey, DATA_TYPE)
 
     /**
      * 追跡の回避を有効にする
      */
     def activateCoping(): Unit = {
-      container.set(namespacedKey, PERSISTENT_DATA_CONTAINER_TYPE, 1)
+      container.set(namespacedKey, DATA_TYPE, "*")
+      timers.get(player).foreach(_.cancel())
     }
 
     /**
@@ -33,6 +38,6 @@ object Timer {
     def deactivateCoping(): Unit = {
       container.remove(namespacedKey)
     }
-    
   }
+
 }
