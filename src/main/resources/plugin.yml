@@ -10,3 +10,9 @@ commands:
 permissions:
   ymze.*:
     default: op
+    children:
+      ymze.phantomcoping:
+        default: true
+  ymze.phantomcoping:
+    default: true
+    description: Player can cope phantoms by consuming rotten flesh
