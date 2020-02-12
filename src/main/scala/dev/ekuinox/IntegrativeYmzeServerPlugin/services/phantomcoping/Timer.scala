@@ -1,7 +1,5 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
-import java.lang
-
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.scheduler.BukkitRunnable
 import collection.mutable.{Map => MutableMap}

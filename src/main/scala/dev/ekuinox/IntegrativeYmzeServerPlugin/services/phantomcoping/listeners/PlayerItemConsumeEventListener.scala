@@ -1,6 +1,6 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Permissions, PhantomCopeService, Timer, ImplicitConversions}
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{PhantomCopeService, ImplicitConversions}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
