@@ -20,6 +20,19 @@ object Timer {
      */
     def canCope: Boolean = container.has(namespacedKey, PERSISTENT_DATA_CONTAINER_TYPE)
 
+    /**
+     * 追跡の回避を有効にする
+     */
+    def activateCoping(): Unit = {
+      container.set(namespacedKey, PERSISTENT_DATA_CONTAINER_TYPE, 1)
+    }
 
+    /**
+     * 追跡の回避を無効にする
+     */
+    def deactivateCoping(): Unit = {
+      container.remove(namespacedKey)
+    }
+    
   }
 }
