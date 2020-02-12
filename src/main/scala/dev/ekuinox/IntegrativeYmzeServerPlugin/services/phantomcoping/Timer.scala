@@ -16,7 +16,7 @@ object Timer {
      * Playerがファントムの追跡を解除できるか
      * @return Boolean
      */
-    def canCope: Boolean =player.getPersistentDataContainer.has(service.makeNamespacedKey(NAMESPACED_KEY), PERSISTENT_DATA_CONTAINER_TYPE)
+    def canCope: Boolean = player.getPersistentDataContainer.has(service.makeNamespacedKey(NAMESPACED_KEY), PERSISTENT_DATA_CONTAINER_TYPE)
 
 
   }
