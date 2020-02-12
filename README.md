@@ -1,0 +1,2 @@
+# IntegrativeYmzeServerPlugin
+うちのサーバで特有のイベントとかもうまとめて書きたい気持ち（乱立させるのがだるい）ので
