@@ -24,7 +24,8 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 
 object PlayerItemConsumeEventListener {
   val TARGET_ITEM: Material = Material.ROTTEN_FLESH
-  implicit class Item(item: ItemStack) {
+  class Item(item: ItemStack) {
     def withTarget: Option[ItemStack] = if (item.getType == TARGET_ITEM) Some(item) else None
   }
+  implicit def toItem(item: ItemStack): Item = new Item(item)
 }
