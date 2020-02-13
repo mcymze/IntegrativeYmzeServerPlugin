@@ -13,3 +13,4 @@ project/plugins/project/
 .lib/
 .idea/**/workspace.xml
 .idea/**/tasks.xml
+.idea/discord.xml
