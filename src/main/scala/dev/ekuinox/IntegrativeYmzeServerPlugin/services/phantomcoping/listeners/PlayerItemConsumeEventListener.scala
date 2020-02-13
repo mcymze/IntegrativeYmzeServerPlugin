@@ -11,7 +11,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
   import PlayerItemConsumeEventListener._
 
   @EventHandler
-  def onPlayerItemConsumeEvent(event: PlayerItemConsumeEvent): Unit = {
+  def onPlayerItemConsume(event: PlayerItemConsumeEvent): Unit = {
     import ImplicitConversions._
     for {
       player <- event.getPlayer.withCoping
