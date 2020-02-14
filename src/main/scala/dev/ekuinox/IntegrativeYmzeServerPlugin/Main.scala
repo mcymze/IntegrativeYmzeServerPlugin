@@ -14,6 +14,7 @@ class Main extends JavaPlugin {
   ).map(service => (service.name, service)).toMap
 
   override def onEnable(): Unit = {
+    saveDefaultConfig()
     services.foreach(_._2.registerListeners())
   }
 
