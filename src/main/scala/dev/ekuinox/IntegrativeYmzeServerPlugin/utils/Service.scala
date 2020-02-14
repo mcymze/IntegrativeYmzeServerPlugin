@@ -9,4 +9,7 @@ abstract class Service(implicit val main: Main) {
   def makeNamespacedKey(key: String): NamespacedKey = new NamespacedKey(main, s"$name.key")
 
   val name: String
+
+  val configurePath = s"services.$name"
+
 }
