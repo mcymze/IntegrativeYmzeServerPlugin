@@ -7,7 +7,11 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.{EventListener, Service}
  * プラグイン自体の管理だとかそういうのをやる
  */
 class Central(implicit main: Main) extends Service {
-  override val name: String = "central"
+  import Central._
+  override val name: String = NAME
   override val eventListeners: Seq[EventListener] = Seq.empty
+}
 
+object Central {
+  val NAME = "central"
 }
