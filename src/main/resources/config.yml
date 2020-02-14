@@ -7,3 +7,6 @@ services:
     items:
       - ROTTEN_FLESH # ゾンビ肉
       - POISONOUS_POTATO # 青芋
+    messages:
+      activation: null
+      deactivation: null
