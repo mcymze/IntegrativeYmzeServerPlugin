@@ -1,0 +1,6 @@
+services:
+  # PhantomCopeService
+  # ファントムの追跡から逃れるための機能まとめ
+  phantomCopeService:
+    # 効果が有効なTick数
+    tick: 1000
