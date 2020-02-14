@@ -17,12 +17,17 @@ class Central(implicit main: Main) extends Service {
 
   override def onCommand(sender: CommandSender, args: List[String]): Unit = {
     args.headOption.foreach {
-      case "reload" => {
+      case "reload" =>
         Try(sender.asInstanceOf[Player]).toOption match {
-          case Some(player) if player.hasPermission("ymze.central.reload") => reloadConfig()
-          case None => reloadConfig()
+          case Some(player) if player.hasPermission("ymze.central.reload") => {
+            reloadConfig()
+            player.sendMessage("reload config")
+          }
+          case None => {
+            sender.sendMessage("[YmzeCentra] reload config")
+            reloadConfig()
+          }
         }
-      }
     }
   }
 }
