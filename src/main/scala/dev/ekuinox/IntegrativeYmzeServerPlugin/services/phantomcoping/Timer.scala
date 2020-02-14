@@ -23,12 +23,12 @@ object Timer {
     /**
      * 追跡の回避を有効にする
      */
-    def activateCoping(): Unit = {
+    def activateCoping(tick: Long = service.getActiveCopingTicks): Unit = {
       container.set(namespacedKey, DATA_TYPE, "*")
       timers.get(player).foreach(_.cancel())
       val runner = new Runner(player)
       timers += (player -> runner)
-      runner.runTaskLaterAsynchronously(service.getPlugin, service.getActiveCopingTicks)
+      runner.runTaskLaterAsynchronously(service.getPlugin, tick)
       service.getActivationMessage.foreach(player.sendMessage)
     }
 
