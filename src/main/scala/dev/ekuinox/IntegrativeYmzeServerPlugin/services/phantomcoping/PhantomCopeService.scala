@@ -11,6 +11,8 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.{Main => Plugin}
 class PhantomCopeService(implicit plugin: Plugin) extends Service with ListenerContainer{
   implicit val self: PhantomCopeService = this
 
+  override val name = "phantomCopeService"
+
   // このクラスで利用するListener
   override val eventListeners = Seq(
     new PlayerItemConsumeEventListener,
