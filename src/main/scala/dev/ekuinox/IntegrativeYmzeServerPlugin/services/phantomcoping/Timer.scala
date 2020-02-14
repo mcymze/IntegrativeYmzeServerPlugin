@@ -33,6 +33,7 @@ object Timer {
       val runner = new Runner(player)
       timers += (player -> runner)
       runner.runTaskLaterAsynchronously(service.getPlugin, ACTIVE_TICKS)
+      player.sendMessage(s"${player.getDisplayName} activate coping")
     }
 
     /**
@@ -41,6 +42,7 @@ object Timer {
     def deactivateCoping(): Unit = {
       container.remove(namespacedKey)
       timers.get(player).foreach(_.cancel())
+      player.sendMessage(s"${player.getDisplayName} deactivate coping")
     }
   }
 
