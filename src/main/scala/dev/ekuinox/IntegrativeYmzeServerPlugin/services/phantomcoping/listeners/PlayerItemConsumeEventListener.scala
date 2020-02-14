@@ -17,7 +17,11 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
       player <- event.getPlayer.withCoping
       item <- event.getItem.withTarget
     } {
-      player.activateCoping()
+      if (player.isSneaking) {
+        player.deactivateCoping()
+      } else {
+        player.activateCoping()
+      }
     }
   }
 }
