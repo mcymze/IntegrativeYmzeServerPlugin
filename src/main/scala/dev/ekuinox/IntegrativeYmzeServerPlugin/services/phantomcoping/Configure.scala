@@ -10,6 +10,15 @@ import scala.util.Try
 object Configure {
 
   case class TargetItem(material: Material, ticks: Long)
+  object TargetItem {
+    def fromMap(map: mutable.Map[String, Any]): Option[TargetItem] = for {
+      name <- map.get("name")
+      name <- Try(name.asInstanceOf[String]).toOption
+      material <- Try(Material.valueOf(name)).toOption
+      ticks <- map.get("ticks")
+      ticks <- Try(ticks.asInstanceOf[Int]).toOption
+    } yield TargetItem(material, ticks.toLong)
+  }
 
   implicit class ServiceWithConfigure(service: PhantomCopeService) {
     private val configure = service.getPlugin.getConfig
