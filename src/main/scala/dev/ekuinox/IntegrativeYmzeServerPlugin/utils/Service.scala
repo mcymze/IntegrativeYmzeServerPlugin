@@ -32,6 +32,6 @@ abstract class Service(implicit val main: Main) {
    */
   val subCommand: String = name
 
-  def onCommand(sender: CommandSender, args: Array[String]): Unit = {}
+  def onCommand(sender: CommandSender, args: List[String]): Unit = {}
 
 }
