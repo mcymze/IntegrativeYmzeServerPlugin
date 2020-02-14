@@ -3,9 +3,10 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.utils
 import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
 import org.bukkit.NamespacedKey
 
-class Service(implicit val main: Main) {
+abstract class Service(implicit val main: Main) {
   def getPlugin: Main = main
 
-  def makeNamespacedKey(key: String): NamespacedKey = new NamespacedKey(main, s"${this.toString}.key")
+  def makeNamespacedKey(key: String): NamespacedKey = new NamespacedKey(main, s"$name.key")
 
+  val name: String
 }
