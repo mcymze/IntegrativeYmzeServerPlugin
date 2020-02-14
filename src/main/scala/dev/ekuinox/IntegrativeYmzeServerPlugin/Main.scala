@@ -1,7 +1,8 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Central, PhantomCopeService}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Service
+import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main extends JavaPlugin {
@@ -13,6 +14,17 @@ class Main extends JavaPlugin {
 
   override def onEnable(): Unit = {
     services.foreach(_._2.registerListeners())
+  }
+
+  override def onCommand(sender: CommandSender, command: Command, label: String, args: Array[String]): Boolean = {
+    (for {
+      subCommand <- args.headOption
+      service <- services.get(subCommand)
+    } yield (subCommand, service)) match {
+      case Some((_, service)) => service.onCommand(sender, args.toList.tail)
+      case None => services.get(Central.NAME).foreach(_.onCommand(sender, args.toList.tail))
+    }
+    super.onCommand(sender, command, label, args)
   }
 
 }
