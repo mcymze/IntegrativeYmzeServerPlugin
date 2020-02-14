@@ -14,4 +14,6 @@ abstract class Service(implicit val main: Main) {
 
   def makeConfigurePath(key: String): String = s"$configurePath.$key"
 
+  def reloadConfig(): Unit = main.reloadConfig()
+
 }
