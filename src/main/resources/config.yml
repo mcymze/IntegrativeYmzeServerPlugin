@@ -4,3 +4,6 @@ services:
   phantomCopeService:
     # 効果が有効なTick数
     tick: 1000
+    items:
+      - ROTTEN_FLESH # ゾンビ肉
+      - POISONOUS_POTATO # 青芋
