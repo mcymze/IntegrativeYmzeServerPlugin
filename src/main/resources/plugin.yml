@@ -12,6 +12,10 @@ permissions:
     default: op
     children:
       ymze.phantomcoping: true
+      ymze.central.reload: true
   ymze.phantomcoping:
     default: true
     description: Player can cope phantoms by consuming rotten flesh
+  ymze.central.reload:
+    default: op
+    description: reload config.yml

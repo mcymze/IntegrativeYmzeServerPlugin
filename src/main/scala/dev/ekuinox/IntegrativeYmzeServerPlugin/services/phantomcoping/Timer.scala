@@ -2,16 +2,13 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import org.bukkit.persistence.PersistentDataType
 import collection.mutable.{Map => MutableMap}
+import Configure._
 
 object Timer {
   private type BukkitPlayer = org.bukkit.entity.Player
 
   val NAMESPACED_KEY = "timer"
   val DATA_TYPE: PersistentDataType[String, String] = PersistentDataType.STRING
-
-  // 機能の有効Tick数
-  val ACTIVE_TICKS = 1000
-
   val timers: collection.mutable.Map[BukkitPlayer, Runner] = MutableMap[BukkitPlayer, Runner]()
 
   class Player(player: BukkitPlayer)(implicit service: PhantomCopeService) {
@@ -32,7 +29,7 @@ object Timer {
       timers.get(player).foreach(_.cancel())
       val runner = new Runner(player)
       timers += (player -> runner)
-      runner.runTaskLaterAsynchronously(service.getPlugin, ACTIVE_TICKS)
+      runner.runTaskLaterAsynchronously(service.getPlugin, service.getActiveCopingTicks)
       player.sendMessage(s"${player.getDisplayName} activate coping")
     }
 
