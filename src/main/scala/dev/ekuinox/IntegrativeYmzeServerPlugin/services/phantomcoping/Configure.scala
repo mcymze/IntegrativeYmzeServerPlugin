@@ -2,11 +2,23 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import org.bukkit.Material
 
+import scala.collection.mutable
 import scala.language.implicitConversions
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 object Configure {
+
+  case class TargetItem(material: Material, ticks: Long)
+  object TargetItem {
+    def fromMap(map: mutable.Map[String, Any]): Option[TargetItem] = for {
+      name <- map.get("name")
+      name <- Try(name.asInstanceOf[String]).toOption
+      material <- Try(Material.valueOf(name)).toOption
+      ticks <- map.get("ticks")
+      ticks <- Try(ticks.asInstanceOf[Int]).toOption
+    } yield TargetItem(material, ticks.toLong)
+  }
 
   implicit class ServiceWithConfigure(service: PhantomCopeService) {
     private val configure = service.getPlugin.getConfig
@@ -14,15 +26,13 @@ object Configure {
     private def makeKey(key: String): String = service.makeConfigurePath(key)
 
     /**
-     * 回避を開始して効果が無効になるまでの時間(tick)
-     * @return Long
+     * 対象のTargetItemのリスト
      */
-    def getActiveCopingTicks: Long = configure.getLong(makeKey("tick"), 1000)
-
-    /**
-     * 対象にするMaterialのリスト
-     */
-    def getTargetItems: List[Material] = configure.getStringList(makeKey("items")).asScala.flatMap(name => Try(Material.valueOf(name)).toOption).toList
+    def getTargetItems: List[TargetItem] =
+      configure.getMapList(makeKey("items")).asScala.map(_.asScala).flatMap(map => for {
+        map <- Try(map.asInstanceOf[mutable.Map[String, Any]]).toOption
+        item <- TargetItem.fromMap(map)
+      } yield item).toList
 
     /**
      * 機能有効時に表示されるメッセージ
