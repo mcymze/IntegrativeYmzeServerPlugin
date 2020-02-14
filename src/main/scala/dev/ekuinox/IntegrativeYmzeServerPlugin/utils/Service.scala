@@ -2,6 +2,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.utils
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
 import org.bukkit.NamespacedKey
+import org.bukkit.command.CommandSender
 
 abstract class Service(implicit val main: Main) {
   val name: String
@@ -25,5 +26,12 @@ abstract class Service(implicit val main: Main) {
   val eventListeners: Seq[EventListener]
 
   def registerListeners(): Unit = eventListeners.foreach(_.register())
+
+  /**
+   * command 管理
+   */
+  val subCommand: String = name
+
+  def onCommand(sender: CommandSender, args: Array[String]): Unit = {}
 
 }
