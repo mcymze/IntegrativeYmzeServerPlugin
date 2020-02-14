@@ -25,7 +25,7 @@ class Main extends JavaPlugin {
       case Some((_, service)) => service.onCommand(sender, args.toList.tail)
       case None => services.get(Central.NAME).foreach(_.onCommand(sender, args.toList))
     }
-    super.onCommand(sender, command, label, args)
+    true
   }
 
 }
