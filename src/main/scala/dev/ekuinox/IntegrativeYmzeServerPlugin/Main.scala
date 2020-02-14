@@ -6,12 +6,13 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main extends JavaPlugin {
   implicit val self: Main = this
-  lazy val services: Seq[Service] = Seq(
-    new PhantomCopeService
-  )
+  lazy val services: Map[String, Service] = Seq(
+    new PhantomCopeService,
+    new Central
+  ).map(service => (service.name, service)).toMap
 
   override def onEnable(): Unit = {
-    services.foreach(_.registerListeners())
+    services.foreach(_._2.registerListeners())
   }
 
 }
