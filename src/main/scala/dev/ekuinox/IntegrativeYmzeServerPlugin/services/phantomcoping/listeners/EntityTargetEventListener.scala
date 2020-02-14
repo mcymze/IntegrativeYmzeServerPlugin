@@ -7,6 +7,8 @@ import org.bukkit.entity.EntityType._
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityTargetEvent
 
+import scala.util.Try
+
 class EntityTargetEventListener(implicit service: PhantomCopeService) extends EventListener {
   import EntityTargetEventListener._
   import ImplicitConversions._
@@ -27,10 +29,10 @@ object EntityTargetEventListener {
   implicit class EntityExtends(entity: Entity) {
     // for Phantom
     def isPhantom: Boolean = entity.getType == PHANTOM
-    def asPhantom: Option[Phantom] = if (isPhantom) Some(entity.asInstanceOf[Phantom]) else None
+    def asPhantom: Option[Phantom] = if (isPhantom) Try(entity.asInstanceOf[Phantom]).toOption else None
 
     // for Player
     def isPlayer: Boolean = entity.getType == PLAYER
-    def asPlayer: Option[Player] = if (isPlayer) Some(entity.asInstanceOf[Player]) else None
+    def asPlayer: Option[Player] = if (isPlayer) Try(entity.asInstanceOf[Player]).toOption else None
   }
 }
