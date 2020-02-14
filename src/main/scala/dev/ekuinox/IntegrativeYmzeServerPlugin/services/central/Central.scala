@@ -24,7 +24,7 @@ class Central(implicit main: Main) extends Service {
             player.sendMessage("reload config")
           }
           case None => {
-            sender.sendMessage("[YmzeCentra] reload config")
+            sender.sendMessage("[YmzeCentral] reload config")
             reloadConfig()
           }
         }
