@@ -3,15 +3,14 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 import org.bukkit.persistence.PersistentDataType
 import collection.mutable.{Map => MutableMap}
 import Configure._
+import org.bukkit.entity.Player
 
 object Timer {
-  private type BukkitPlayer = org.bukkit.entity.Player
-
   val NAMESPACED_KEY = "timer"
   val DATA_TYPE: PersistentDataType[String, String] = PersistentDataType.STRING
-  val timers: collection.mutable.Map[BukkitPlayer, Runner] = MutableMap[BukkitPlayer, Runner]()
+  val timers: collection.mutable.Map[Player, Runner] = MutableMap[Player, Runner]()
 
-  class Player(player: BukkitPlayer)(implicit service: PhantomCopeService) {
+  implicit class PlayerWithTimer(player: Player)(implicit service: PhantomCopeService) {
     private val container = player.getPersistentDataContainer
     private val namespacedKey = service.makeNamespacedKey(NAMESPACED_KEY)
 

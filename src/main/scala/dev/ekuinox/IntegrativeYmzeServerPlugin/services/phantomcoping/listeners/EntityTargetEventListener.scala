@@ -1,6 +1,6 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{ImplicitConversions, PhantomCopeService}
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.entity.{Entity, Phantom, Player}
 import org.bukkit.entity.EntityType._
@@ -11,7 +11,7 @@ import scala.util.Try
 
 class EntityTargetEventListener(implicit service: PhantomCopeService) extends EventListener {
   import EntityTargetEventListener._
-  import ImplicitConversions._
+  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Timer._
 
   @EventHandler
   def onEntityTarget(event: EntityTargetEvent): Unit = {
