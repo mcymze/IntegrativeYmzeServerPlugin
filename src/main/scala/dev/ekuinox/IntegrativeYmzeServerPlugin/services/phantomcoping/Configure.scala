@@ -4,7 +4,7 @@ import scala.language.implicitConversions
 
 object Configure {
 
-  class ServiceWithConfigure(service: PhantomCopeService) {
+  implicit class ServiceWithConfigure(service: PhantomCopeService) {
     private val configure = service.getPlugin.getConfig
 
     /**
@@ -13,6 +13,4 @@ object Configure {
      */
     def getActiveCopingTicks: Long = configure.getLong(service.makeConfigurePath("tick"), 1000)
   }
-  implicit def convertToServiceWithConfigure(service: PhantomCopeService): ServiceWithConfigure = new ServiceWithConfigure(service)
-
 }
