@@ -12,4 +12,6 @@ abstract class Service(implicit val main: Main) {
 
   val configurePath = s"services.$name"
 
+  def makeConfigurePath(key: String): String = s"$configurePath.$key"
+
 }
