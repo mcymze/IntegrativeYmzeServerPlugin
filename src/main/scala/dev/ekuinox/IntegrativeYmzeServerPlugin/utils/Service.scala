@@ -4,12 +4,15 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
 import org.bukkit.NamespacedKey
 
 abstract class Service(implicit val main: Main) {
+  val name: String
+
   def getPlugin: Main = main
 
   def makeNamespacedKey(key: String): NamespacedKey = new NamespacedKey(main, s"$name.key")
 
-  val name: String
-
+  /**
+   * config 管理
+   */
   val configurePath = s"services.$name"
 
   def makeConfigurePath(key: String): String = s"$configurePath.$key"
