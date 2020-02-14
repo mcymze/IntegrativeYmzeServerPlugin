@@ -28,18 +28,11 @@ object Configure {
     /**
      * 対象のTargetItemのリスト
      */
-    def getTargetItems: List[TargetItem] = {
-      configure.getMapList(makeKey("items")).asScala.map(_.asScala).flatMap(map => {
-        for {
-          map <- Try(map.asInstanceOf[mutable.Map[String, Any]]).toOption
-          name <- map.get("name")
-          name <- Try(name.asInstanceOf[String]).toOption
-          material <- Try(Material.valueOf(name)).toOption
-          ticks <- map.get("ticks")
-          ticks <- Try(ticks.asInstanceOf[Long]).toOption
-        } yield TargetItem(material, ticks)
-      }).toList
-    }
+    def getTargetItems: List[TargetItem] =
+      configure.getMapList(makeKey("items")).asScala.map(_.asScala).flatMap(map => for {
+        map <- Try(map.asInstanceOf[mutable.Map[String, Any]]).toOption
+        item <- TargetItem.fromMap(map)
+      } yield item).toList
 
     /**
      * 機能有効時に表示されるメッセージ
