@@ -19,4 +19,11 @@ abstract class Service(implicit val main: Main) {
 
   def reloadConfig(): Unit = main.reloadConfig()
 
+  /**
+   * Listener 管理
+   */
+  val eventListeners: Seq[EventListener]
+
+  def registerListeners(): Unit = eventListeners.foreach(_.register())
+
 }
