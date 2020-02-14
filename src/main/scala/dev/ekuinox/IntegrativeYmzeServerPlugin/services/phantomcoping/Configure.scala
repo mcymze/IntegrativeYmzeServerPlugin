@@ -9,7 +9,7 @@ import scala.util.Try
 
 object Configure {
 
-  case class TargetItem(material: Material, tick: Long)
+  case class TargetItem(material: Material, ticks: Long)
 
   implicit class ServiceWithConfigure(service: PhantomCopeService) {
     private val configure = service.getPlugin.getConfig
@@ -26,9 +26,9 @@ object Configure {
           name <- map.get("name")
           name <- Try(name.asInstanceOf[String]).toOption
           material <- Try(Material.valueOf(name)).toOption
-          tick <- map.get("tick")
-          tick <- Try(tick.asInstanceOf[Long]).toOption
-        } yield TargetItem(material, tick)
+          ticks <- map.get("ticks")
+          ticks <- Try(ticks.asInstanceOf[Long]).toOption
+        } yield TargetItem(material, ticks)
       }).toList
     }
 

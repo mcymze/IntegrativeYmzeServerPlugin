@@ -22,7 +22,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
       if (player.isSneaking) {
         player.deactivateCoping()
       } else {
-        player.activateCoping(item.tick)
+        player.activateCoping(item.ticks)
       }
     }
   }

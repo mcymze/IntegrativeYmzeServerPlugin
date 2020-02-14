@@ -4,9 +4,9 @@ services:
   phantomCopeService:
     items:
       - name: ROTTEN_FLESH # ゾンビ肉
-        tick: 1000
+        ticks: 1000
       - name: POISONOUSE_POTATO # 青芋
-        tick: 1000
+        ticks: 1000
     messages:
       activation: null
       deactivation: null
