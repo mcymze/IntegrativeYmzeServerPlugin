@@ -23,5 +23,15 @@ object Configure {
      * 対象にするMaterialのリスト
      */
     def getTargetItems: List[Material] = configure.getStringList(makeKey("items")).asScala.flatMap(name => Try(Material.valueOf(name)).toOption).toList
+
+    /**
+     * 機能有効時に表示されるメッセージ
+     */
+    def getActivationMessage: Option[String] = Option(configure.getString(makeKey("messages.activation")))
+
+    /**
+     * 機能無効時に表示されるメッセージ
+     */
+    def getDeactivationMessage: Option[String] = Option(configure.getString(makeKey("messages.deactivation")))
   }
 }
