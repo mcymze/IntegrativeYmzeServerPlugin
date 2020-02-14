@@ -17,7 +17,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 
     for {
       player <- event.getPlayer.withCoping
-      item <- event.getItem.withTarget
+      item <- event.getItem.toTargetItem
     } {
       if (player.isSneaking) {
         player.deactivateCoping()
@@ -30,8 +30,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 
 object PlayerItemConsumeEventListener {
   import Configure._
-  implicit class Item(item: ItemStack) {
-    def withTarget(implicit service: PhantomCopeService): Option[ItemStack] = if (service.getTargetItems.contains(item.getType)) Some(item) else None
+  implicit class ItemStackExtends(itemStack: ItemStack)(implicit service: PhantomCopeService) {
+    def toTargetItem: Option[TargetItem] = service.getTargetItems.find(_.material == itemStack.getType)
   }
-  def toItem(item: ItemStack): Item = new Item(item)
 }
