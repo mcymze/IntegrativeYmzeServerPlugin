@@ -1,6 +1,6 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Configure, PhantomCopeService}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -29,9 +29,9 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 }
 
 object PlayerItemConsumeEventListener {
-  val TARGET_ITEM: Material = Material.ROTTEN_FLESH
+  import Configure._
   implicit class Item(item: ItemStack) {
-    def withTarget: Option[ItemStack] = if (item.getType == TARGET_ITEM) Some(item) else None
+    def withTarget(implicit service: PhantomCopeService): Option[ItemStack] = if (service.getTargetItems.contains(item.getType)) Some(item) else None
   }
   def toItem(item: ItemStack): Item = new Item(item)
 }
