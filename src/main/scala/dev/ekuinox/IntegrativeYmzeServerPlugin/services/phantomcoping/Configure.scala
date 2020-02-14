@@ -17,13 +17,7 @@ object Configure {
     private def makeKey(key: String): String = service.makeConfigurePath(key)
 
     /**
-     * 回避を開始して効果が無効になるまでの時間(tick)
-     * @return Long
-     */
-    def getActiveCopingTicks: Long = configure.getLong(makeKey("tick"), 1000)
-
-    /**
-     * 対象にするMaterialのリスト
+     * 対象のTargetItemのリスト
      */
     def getTargetItems: List[TargetItem] = {
       configure.getMapList(makeKey("items")).asScala.map(_.asScala).flatMap(map => {

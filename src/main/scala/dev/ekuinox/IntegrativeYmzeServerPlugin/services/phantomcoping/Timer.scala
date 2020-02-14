@@ -23,7 +23,7 @@ object Timer {
     /**
      * 追跡の回避を有効にする
      */
-    def activateCoping(tick: Long = service.getActiveCopingTicks): Unit = {
+    def activateCoping(tick: Long): Unit = {
       container.set(namespacedKey, DATA_TYPE, "*")
       timers.get(player).foreach(_.cancel())
       val runner = new Runner(player)
