@@ -17,9 +17,7 @@ class EntityTargetEventListener(implicit service: PhantomCopeService) extends Ev
       phantom <- event.getEntity.asPhantom
       player <- event.getTarget.asPlayer
     } {
-      if (player.canCope) {
-        event.setCancelled(false)
-      }
+      event.setCancelled(player.canCope)
     }
   }
 }
