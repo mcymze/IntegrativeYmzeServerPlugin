@@ -1,4 +1,4 @@
-package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
+package dev.ekuinox.IntegrativeYmzeServerPlugin.services.central
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.{EventListener, Service}

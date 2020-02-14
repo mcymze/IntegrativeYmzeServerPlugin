@@ -1,6 +1,7 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Central, PhantomCopeService}
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.central.Central
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Service
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.plugin.java.JavaPlugin
