@@ -1,6 +1,10 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
+import org.bukkit.Material
+
 import scala.language.implicitConversions
+import scala.jdk.CollectionConverters._
+import scala.util.Try
 
 object Configure {
 
@@ -12,5 +16,10 @@ object Configure {
      * @return Long
      */
     def getActiveCopingTicks: Long = configure.getLong(service.makeConfigurePath("tick"), 1000)
+
+    /**
+     * 対象にするMaterialのリスト
+     */
+    def getTargetItems: List[Material] = configure.getStringList("items").asScala.flatMap(name => Try(Material.valueOf(name)).toOption).toList
   }
 }
