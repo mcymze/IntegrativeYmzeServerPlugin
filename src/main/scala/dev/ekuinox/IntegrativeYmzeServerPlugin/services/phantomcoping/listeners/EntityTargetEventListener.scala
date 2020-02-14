@@ -15,7 +15,8 @@ class EntityTargetEventListener(implicit service: PhantomCopeService) extends Ev
   def onEntityTarget(event: EntityTargetEvent): Unit = {
     for {
       phantom <- event.getEntity.asPhantom
-      player <- event.getTarget.asPlayer
+      target <- Option(event.getTarget)
+      player <- target.asPlayer
     } {
       event.setCancelled(player.canCope)
     }
