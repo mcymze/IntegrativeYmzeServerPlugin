@@ -2,11 +2,14 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import org.bukkit.Material
 
+import scala.collection.mutable
 import scala.language.implicitConversions
 import scala.jdk.CollectionConverters._
 import scala.util.Try
 
 object Configure {
+
+  case class TargetItem(material: Material, tick: Long)
 
   implicit class ServiceWithConfigure(service: PhantomCopeService) {
     private val configure = service.getPlugin.getConfig
@@ -22,7 +25,18 @@ object Configure {
     /**
      * 対象にするMaterialのリスト
      */
-    def getTargetItems: List[Material] = configure.getStringList(makeKey("items")).asScala.flatMap(name => Try(Material.valueOf(name)).toOption).toList
+    def getTargetItems: List[TargetItem] = {
+      configure.getMapList(makeKey("items")).asScala.map(_.asScala).flatMap(map => {
+        for {
+          map <- Try(map.asInstanceOf[mutable.Map[String, Any]]).toOption
+          name <- map.get("name")
+          name <- Try(name.asInstanceOf[String]).toOption
+          material <- Try(Material.valueOf(name)).toOption
+          tick <- map.get("tick")
+          tick <- Try(tick.asInstanceOf[Long]).toOption
+        } yield TargetItem(material, tick)
+      }).toList
+    }
 
     /**
      * 機能有効時に表示されるメッセージ

@@ -5,8 +5,10 @@ services:
     # 効果が有効なTick数
     tick: 1000
     items:
-      - ROTTEN_FLESH # ゾンビ肉
-      - POISONOUS_POTATO # 青芋
+      - name: ROTTEN_FLESH # ゾンビ肉
+        tick: 1000
+      - name: POISONOUSE_POTATO # 青芋
+        tick: 1000
     messages:
       activation: null
       deactivation: null
