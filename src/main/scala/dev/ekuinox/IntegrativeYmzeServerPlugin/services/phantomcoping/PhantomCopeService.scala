@@ -12,6 +12,7 @@ class PhantomCopeService(implicit plugin: Plugin) extends Service {
   implicit override val self: PhantomCopeService = this
 
   override val name = "phantomCopeService"
+  override lazy val label: String = "phantom-cope"
 
   // このクラスで利用するListener
   override val eventListeners = Seq(

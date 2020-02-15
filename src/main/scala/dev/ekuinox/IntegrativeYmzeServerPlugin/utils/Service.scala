@@ -5,6 +5,8 @@ import org.bukkit.NamespacedKey
 import org.bukkit.command.CommandSender
 
 abstract class Service(implicit val main: Main) {
+  import Service._
+
   implicit val self: Service = this
   
   val name: String
@@ -16,7 +18,7 @@ abstract class Service(implicit val main: Main) {
   /**
    * config 管理
    */
-  lazy val configurePath: String = makePath("service", name)
+  lazy val configurePath: String = makePath(CONFIGURES_PARENT, name)
 
   def makeConfigurePath(key: String): String = makePath(configurePath, key)
 
@@ -25,7 +27,7 @@ abstract class Service(implicit val main: Main) {
   /**
    * permission 管理
    */
-  lazy val permissionPath: String = makePath("service", name)
+  lazy val permissionPath: String = makePath(PERMISSIONS_PARENT, name)
 
   def makePermissionPath(key: String): String = makePath(permissionPath, key)
 
@@ -43,4 +45,16 @@ abstract class Service(implicit val main: Main) {
 
   def onCommand(sender: CommandSender, args: List[String]): Unit = {}
 
+  /**
+   * メッセージ関連
+   */
+  lazy val label: String = s"Ymze-$name"
+
+  def makeMessage(message: String): String = s"[$label] $message"
+
+}
+
+object Service {
+  lazy val CONFIGURES_PARENT = "services"
+  lazy val PERMISSIONS_PARENT: String =  makePath(Main.PERMISSIONS_ROOT, "services")
 }
