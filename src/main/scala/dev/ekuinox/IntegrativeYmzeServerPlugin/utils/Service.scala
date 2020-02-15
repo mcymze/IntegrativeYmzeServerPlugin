@@ -16,7 +16,7 @@ abstract class Service(implicit val main: Main) {
   /**
    * config 管理
    */
-  lazy val configurePath: String = makePath("service", name)
+  lazy val configurePath: String = makePath("services", name)
 
   def makeConfigurePath(key: String): String = makePath(configurePath, key)
 
@@ -25,7 +25,7 @@ abstract class Service(implicit val main: Main) {
   /**
    * permission 管理
    */
-  lazy val permissionPath: String = makePath("service", name)
+  lazy val permissionPath: String = makePath("services", name)
 
   def makePermissionPath(key: String): String = makePath(permissionPath, key)
 
