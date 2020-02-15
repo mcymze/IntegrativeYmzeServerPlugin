@@ -45,6 +45,13 @@ abstract class Service(implicit val main: Main) {
 
   def onCommand(sender: CommandSender, args: List[String]): Unit = {}
 
+  /**
+   * メッセージ関連
+   */
+  lazy val label: String = s"Ymze-$name"
+
+  def makeMessage(message: String): String = s"[$label]$message"
+
 }
 
 object Service {
