@@ -17,20 +17,21 @@ class Central(implicit main: Main) extends Service {
   override val eventListeners: Seq[EventListener] = Seq.empty
 
   override def onCommand(sender: CommandSender, args: List[String]): Unit = {
+    args.headOption.foreach {
+      case "reload" => onReloadCommand(sender, args.tail)
+    }
+  }
+
+  private def onReloadCommand(sender: CommandSender, args: List[String]): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
     import Permissions._
-
-    args.headOption.foreach {
-      case "reload" =>
-        Try(sender.asInstanceOf[Player]).toOption match {
-          case Some(player) if player.hasPermission(Reload) =>
-            reloadConfig()
-            player.sendMessage("reload config")
-          case None =>
-            sender.sendMessage("[YmzeCentral] reload config")
-            reloadConfig()
-        }
-    }
+    (Try(sender.asInstanceOf[Player]).toOption match {
+      case Some(player) => player.withPermission(Reload).map(_.asInstanceOf[CommandSender])
+      case None => Some(sender)
+    }).foreach(sender => {
+      reloadConfig()
+      sender.sendMessage("[YmzeCentral] Reloaded configurations")
+    })
   }
 }
 
