@@ -9,7 +9,7 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.{Main => Plugin}
  * @param plugin Plugin
  */
 class PhantomCopeService(implicit plugin: Plugin) extends Service {
-  implicit val self: PhantomCopeService = this
+  implicit override val self: PhantomCopeService = this
 
   override val name = "phantomCopeService"
 

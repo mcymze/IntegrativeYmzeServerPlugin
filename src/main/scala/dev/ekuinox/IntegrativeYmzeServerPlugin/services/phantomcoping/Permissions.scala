@@ -1,15 +1,9 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
-import org.bukkit.entity.Player
+import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions.Permission
 
 object Permissions {
 
-  private val COPING = "ymze.phantomcoping"
+  object Cope extends Permission("cope")
 
-  implicit class PlayerWithPermission(player: Player) {
-
-    def hasCopingPermission: Boolean = player.hasPermission(COPING)
-    def withCoping: Option[Player] = if (hasCopingPermission) Some(player) else None
-
-  }
 }

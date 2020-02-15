@@ -5,6 +5,8 @@ import org.bukkit.NamespacedKey
 import org.bukkit.command.CommandSender
 
 abstract class Service(implicit val main: Main) {
+  implicit val self: Service = this
+  
   val name: String
 
   def getPlugin: Main = main
@@ -14,11 +16,18 @@ abstract class Service(implicit val main: Main) {
   /**
    * config 管理
    */
-  lazy val configurePath = s"services.$name"
+  lazy val configurePath: String = makePath("service", name)
 
-  def makeConfigurePath(key: String): String = s"services.$name.$key"
+  def makeConfigurePath(key: String): String = makePath(configurePath, key)
 
   def reloadConfig(): Unit = main.reloadConfig()
+
+  /**
+   * permission 管理
+   */
+  lazy val permissionPath: String = makePath("service", name)
+
+  def makePermissionPath(key: String): String = makePath(permissionPath, key)
 
   /**
    * Listener 管理

@@ -7,15 +7,34 @@ commands:
   ymze:
     description: "やまぞえサーバにようこそ"
     usage: /ymze
+
 permissions:
   ymze.*:
     default: op
     children:
-      ymze.phantomcoping: true
-      ymze.central.reload: true
-  ymze.phantomcoping:
-    default: true
-    description: Player can cope phantoms by consuming rotten flesh
-  ymze.central.reload:
+      ymze.services.*: true
+
+  # Services
+  ymze.services.*:
+    default: op
+    children:
+      ymze.services.central.*: true
+      ymze.services.phantomCopeService.*: true
+
+  # -- Central --
+  ymze.services.central.*:
+    default: op
+    children:
+      ymze.services.central.reload: true
+  ymze.services.central.reload:
     default: op
     description: reload config.yml
+
+  # -- PhantomCopeService --
+  ymze.services.phantomCopeService.*:
+    default: op
+    children:
+      ymze.services.phantomCopeService.cope: true
+  ymze.services.phantomCopeService.cope:
+    default: true
+    description: Player can cope phantoms by consuming rotten flesh

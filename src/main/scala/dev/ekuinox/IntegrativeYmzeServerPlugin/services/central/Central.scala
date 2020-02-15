@@ -12,21 +12,23 @@ import scala.util.Try
  */
 class Central(implicit main: Main) extends Service {
   import Central._
+
   override val name: String = NAME
   override val eventListeners: Seq[EventListener] = Seq.empty
 
   override def onCommand(sender: CommandSender, args: List[String]): Unit = {
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
+    import Permissions._
+
     args.headOption.foreach {
       case "reload" =>
         Try(sender.asInstanceOf[Player]).toOption match {
-          case Some(player) if player.hasPermission("ymze.central.reload") => {
+          case Some(player) if player.hasPermission(Reload) =>
             reloadConfig()
             player.sendMessage("reload config")
-          }
-          case None => {
+          case None =>
             sender.sendMessage("[YmzeCentral] reload config")
             reloadConfig()
-          }
         }
     }
   }
