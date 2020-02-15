@@ -21,6 +21,13 @@ abstract class Service(implicit val main: Main) {
   def reloadConfig(): Unit = main.reloadConfig()
 
   /**
+   * permission 管理
+   */
+  lazy val permissionPath: String = makePath("service", name)
+
+  def makePermissionPath(key: String): String = makePath(permissionPath, key)
+
+  /**
    * Listener 管理
    */
   val eventListeners: Seq[EventListener]
