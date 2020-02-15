@@ -7,4 +7,5 @@ package object utils {
    */
   def makePath(arr: Array[String]): String = arr.mkString(".")
 
+  def makePath(parent: String, child: String): String = makePath(Array(parent, child))
 }
