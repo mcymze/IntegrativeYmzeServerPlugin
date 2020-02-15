@@ -23,14 +23,12 @@ class Central(implicit main: Main) extends Service {
     args.headOption.foreach {
       case "reload" =>
         Try(sender.asInstanceOf[Player]).toOption match {
-          case Some(player) if player.hasPermission(Reload) => {
+          case Some(player) if player.hasPermission(Reload) =>
             reloadConfig()
             player.sendMessage("reload config")
-          }
-          case None => {
+          case None =>
             sender.sendMessage("[YmzeCentral] reload config")
             reloadConfig()
-          }
         }
     }
   }
