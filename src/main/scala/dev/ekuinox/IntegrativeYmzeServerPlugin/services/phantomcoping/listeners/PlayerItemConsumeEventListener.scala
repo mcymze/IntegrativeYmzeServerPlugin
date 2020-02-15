@@ -13,10 +13,11 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
   @EventHandler
   def onPlayerItemConsume(event: PlayerItemConsumeEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Permissions._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Timer._
 
     for {
-      player <- event.getPlayer.withCoping
+      player <- event.getPlayer.withPermission(Cope)
       item <- event.getItem.toTargetItem
     } {
       if (player.isSneaking) {
