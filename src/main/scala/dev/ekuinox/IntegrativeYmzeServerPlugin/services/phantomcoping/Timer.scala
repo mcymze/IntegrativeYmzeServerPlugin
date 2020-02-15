@@ -1,8 +1,10 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import org.bukkit.persistence.PersistentDataType
+
 import collection.mutable.{Map => MutableMap}
 import Configure._
+import dev.ekuinox.IntegrativeYmzeServerPlugin.utils._
 import org.bukkit.entity.Player
 
 object Timer {
@@ -29,7 +31,7 @@ object Timer {
       val runner = new Runner(player)
       timers += (player -> runner)
       runner.runTaskLaterAsynchronously(service.getPlugin, ticks)
-      service.getActivationMessage.foreach(player.sendMessage)
+      service.getActivationMessage.foreach(player.sendServiceMessage)
     }
 
     /**
@@ -38,7 +40,7 @@ object Timer {
     def deactivateCoping(): Unit = {
       container.remove(namespacedKey)
       timers.get(player).foreach(_.cancel())
-      service.getDeactivationMessage.foreach(player.sendMessage)
+      service.getDeactivationMessage.foreach(player.sendServiceMessage)
     }
   }
 

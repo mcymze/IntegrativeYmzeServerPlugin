@@ -25,12 +25,14 @@ class Central(implicit main: Main) extends Service {
   private def onReloadCommand(sender: CommandSender, args: List[String]): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
     import Permissions._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.utils._
+
     (Try(sender.asInstanceOf[Player]).toOption match {
       case Some(player) => player.withPermission(Reload).map(_.asInstanceOf[CommandSender])
       case None => Some(sender)
     }).foreach(sender => {
       reloadConfig()
-      sender.sendMessage(makeMessage("Reloaded configurations"))
+      sender.sendServiceMessage("Reloaded configurations")
     })
   }
 }
