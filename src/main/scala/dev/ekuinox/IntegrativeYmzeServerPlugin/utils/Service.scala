@@ -5,6 +5,8 @@ import org.bukkit.NamespacedKey
 import org.bukkit.command.CommandSender
 
 abstract class Service(implicit val main: Main) {
+  implicit val self: Service = this
+  
   val name: String
 
   def getPlugin: Main = main
