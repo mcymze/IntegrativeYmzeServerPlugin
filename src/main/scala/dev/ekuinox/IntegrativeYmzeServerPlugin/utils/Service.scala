@@ -50,7 +50,7 @@ abstract class Service(implicit val main: Main) {
    */
   lazy val label: String = s"Ymze-$name"
 
-  def makeMessage(message: String): String = s"[$label]$message"
+  def makeMessage(message: String): String = s"[$label] $message"
 
 }
 
