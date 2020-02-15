@@ -14,9 +14,9 @@ abstract class Service(implicit val main: Main) {
   /**
    * config 管理
    */
-  lazy val configurePath = s"services.$name"
+  lazy val configurePath: String = makePath(Array("service", name))
 
-  def makeConfigurePath(key: String): String = s"services.$name.$key"
+  def makeConfigurePath(key: String): String = makePath(Array(configurePath, key))
 
   def reloadConfig(): Unit = main.reloadConfig()
 
