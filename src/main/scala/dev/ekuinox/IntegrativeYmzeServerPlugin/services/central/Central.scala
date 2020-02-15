@@ -30,7 +30,7 @@ class Central(implicit main: Main) extends Service {
       case None => Some(sender)
     }).foreach(sender => {
       reloadConfig()
-      sender.sendMessage("[YmzeCentral] Reloaded configurations")
+      sender.sendMessage(makeMessage("Reloaded configurations"))
     })
   }
 }
