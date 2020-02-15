@@ -28,6 +28,8 @@ class Main extends JavaPlugin {
     }
     true
   }
-
 }
 
+object Main {
+  val PERMISSIONS_ROOT = "ymze"
+}
