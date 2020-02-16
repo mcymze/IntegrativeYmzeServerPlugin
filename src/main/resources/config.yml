@@ -10,3 +10,4 @@ services:
     messages:
       activation: null
       deactivation: null
+    ignore-item-effect: true # 消費したアイテムの本来の効果を無視する

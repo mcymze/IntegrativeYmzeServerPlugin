@@ -43,5 +43,11 @@ object Configure {
      * 機能無効時に表示されるメッセージ
      */
     def getDeactivationMessage: Option[String] = Option(configure.getString(makeKey("messages.deactivation")))
+
+    /**
+     * itemの効果を無視するか
+     */
+    def isIgnoreItemEffect: Boolean = configure.getBoolean(makeKey("ignore-item-effect"), true)
+
   }
 }
