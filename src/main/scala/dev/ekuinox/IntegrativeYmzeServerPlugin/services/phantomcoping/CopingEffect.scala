@@ -6,11 +6,11 @@ import Configure._
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils._
 import org.bukkit.entity.Player
 
-object Timer {
-  val NAMESPACED_KEY = "timer"
+object CopingEffect {
+  val NAMESPACED_KEY = "coping-effect"
   val DATA_TYPE: PersistentDataType[String, String] = PersistentDataType.STRING
 
-  implicit class PlayerWithTimer(player: Player)(implicit service: PhantomCopeService) {
+  implicit class PlayerWithCopingEffect(player: Player)(implicit service: PhantomCopeService) {
     private val container = player.getPersistentDataContainer
     private val namespacedKey = service.makeNamespacedKey(NAMESPACED_KEY)
 

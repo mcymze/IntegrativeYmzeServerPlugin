@@ -25,7 +25,7 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
   }
 
   def stop(): Unit = {
-    import Timer._
+    import CopingEffect._
     player.deactivateCoping()
     runners.remove(player)
     cancel()
