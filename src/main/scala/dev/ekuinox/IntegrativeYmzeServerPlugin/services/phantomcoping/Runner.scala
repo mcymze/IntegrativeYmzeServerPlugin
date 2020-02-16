@@ -51,6 +51,9 @@ object Runner {
   }
 
   // プレイヤからrunnerを探して停止させる
-  def stop(player: Player): Unit = runners.get(player).foreach(_.stop())
+  def stop(player: Player): Boolean = runners.get(player) match {
+    case Some(runner) => runner.stop(); true
+    case None => false
+  }
 
 }
