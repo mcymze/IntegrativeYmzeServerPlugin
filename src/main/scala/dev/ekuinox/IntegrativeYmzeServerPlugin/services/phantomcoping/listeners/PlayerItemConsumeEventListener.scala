@@ -4,7 +4,7 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Configure
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerItemConsumeEvent
-import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.{PlayerInventory, ItemStack}
 
 class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) extends EventListener {
   import PlayerItemConsumeEventListener._
@@ -27,18 +27,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 
       import Configure.ServiceWithConfigure
       if (service.isIgnoreItemEffect) {
-        val item = event.getItem
-        item.setAmount(item.getAmount - 1)
-
-        /**
-         * プレイヤのインベントリに更新をかける
-         * 右手(MainHand)にあるアイテムが優先して消費されるはず
-         * Materialを比較して先に一致した方で更新する
-         */
-        val inventory = player.getInventory
-        if (item.getType == inventory.getItemInMainHand.getType) inventory.setItemInMainHand(item)
-        else if (item.getType == inventory.getItemInOffHand.getType) inventory.setItemInOffHand(item)
-
+        decreaseAmount(event.getItem, player.getInventory)
         event.setCancelled(true)
       }
     }
@@ -50,4 +39,16 @@ object PlayerItemConsumeEventListener {
   implicit class ItemStackExtends(itemStack: ItemStack)(implicit service: PhantomCopeService) {
     def toTargetItem: Option[TargetItem] = service.getTargetItems.find(_.material == itemStack.getType)
   }
+
+  /**
+   * プレイヤのインベントリに更新をかける
+   * 右手(MainHand)にあるアイテムが優先して消費されるはず
+   * Materialを比較して先に一致した方で更新する
+   */
+  def decreaseAmount(itemStack: ItemStack, inventory: PlayerInventory, count: Int = 1): Unit = {
+    itemStack.setAmount(itemStack.getAmount - count)
+    if (itemStack.getType == inventory.getItemInMainHand.getType) inventory.setItemInMainHand(itemStack)
+    else if (itemStack.getType == inventory.getItemInOffHand.getType) inventory.setItemInOffHand(itemStack)
+  }
+
 }
