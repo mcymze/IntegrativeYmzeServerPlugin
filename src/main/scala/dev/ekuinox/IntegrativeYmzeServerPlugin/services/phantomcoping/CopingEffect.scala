@@ -20,11 +20,15 @@ object CopingEffect {
      */
     def canCope: Boolean = container.has(namespacedKey, DATA_TYPE)
 
+    def setKey(): Unit = container.set(namespacedKey, DATA_TYPE, "*")
+
+    def removeKey(): Unit = container.remove(namespacedKey)
+
     /**
      * 追跡の回避を有効にする
      */
     def activateCoping(ticks: Long): Unit = {
-      container.set(namespacedKey, DATA_TYPE, "*")
+      setKey()
       Runner.start(player, ticks)
       service.getActivationMessage.foreach(player.sendServiceMessage)
     }
@@ -33,7 +37,7 @@ object CopingEffect {
      * 追跡の回避を無効にする
      */
     def deactivateCoping(): Unit = {
-      container.remove(namespacedKey)
+      removeKey()
       if (!Runner.stop(player))
         service.getDeactivationMessage.foreach(player.sendServiceMessage)
     }
