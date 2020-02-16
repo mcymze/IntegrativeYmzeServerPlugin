@@ -37,11 +37,15 @@ object Runner {
     }
     new Runner(player, spentTicks + effectiveTicks)
   }
-  
-  def start(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Unit = {
+
+  /**
+   * 有効時間(ticks)を返す
+   */
+  def start(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Long = {
     val runner = Runner(player, effectiveTicks)
     runner.runTaskTimer(service.getPlugin, 0L, 1L)
     runners += (player -> runner)
+    runner.getRemainingTicks
   }
 
   // プレイヤからrunnerを探して停止させる
