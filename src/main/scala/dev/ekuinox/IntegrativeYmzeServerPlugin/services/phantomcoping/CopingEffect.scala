@@ -29,8 +29,8 @@ object CopingEffect {
      */
     def activateCoping(ticks: Long): Unit = {
       setKey()
-      Runner.start(player, ticks)
-      service.getActivationMessage.foreach(player.sendServiceMessage)
+      val effectiveTicks = Runner.start(player, ticks)
+      service.getActivationMessage.foreach(message => player.sendServiceMessage(message.replace("$ticks", effectiveTicks.toString)))
     }
 
     /**
