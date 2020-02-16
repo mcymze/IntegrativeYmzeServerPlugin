@@ -5,7 +5,7 @@ services:
     items:
       - name: ROTTEN_FLESH # ゾンビ肉
         ticks: 1200 # 20tick/1s * 60s
-      - name: POISONOUSE_POTATO # 青芋
+      - name: POISONOUS_POTATO # 青芋
         ticks: 1200
     messages:
       activation: null
