@@ -45,15 +45,12 @@ object Runner {
   }
 
   // プレイヤからrunnerを探して停止させる
-  def stop(player: Player)(implicit service: PhantomCopeService): Boolean = {
-    val runner = runners.get(player)
-    if (runner.isEmpty) false
-    else {
-      runner.foreach(_.cancel())
-      runners.remove(player)
+  def stop(player: Player)(implicit service: PhantomCopeService): Boolean = runners.remove(player) match {
+    case Some(runner) =>
+      runner.cancel()
       player.removeKey()
       true
-    }
+    case None => false
   }
 
 }
