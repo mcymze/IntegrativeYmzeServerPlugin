@@ -3,6 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 import collection.mutable.{Map => MutableMap}
+import CopingEffect._
 
 class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService) extends BukkitRunnable {
   import Runner._
@@ -13,17 +14,10 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
     spentTicks += 1
 
     // 有効時間を経過
-    if (spentTicks > effectiveTicks) stop()
+    if (spentTicks > effectiveTicks) stop(player)
   }
 
   def getRemainingTicks: Long = effectiveTicks - spentTicks
-
-  def stop(): Unit = {
-    import CopingEffect._
-    player.deactivateCoping()
-    runners.remove(player)
-    cancel()
-  }
 
 }
 
@@ -37,7 +31,7 @@ object Runner {
      */
     val spentTicks = runners.get(player) match {
       case Some(runner) =>
-        runner.stop()
+        stop(player)
         runner.getRemainingTicks
       case None => 0L
     }
@@ -51,9 +45,15 @@ object Runner {
   }
 
   // プレイヤからrunnerを探して停止させる
-  def stop(player: Player): Boolean = runners.get(player) match {
-    case Some(runner) => runner.stop(); true
-    case None => false
+  def stop(player: Player)(implicit service: PhantomCopeService): Boolean = {
+    val runner = runners.get(player)
+    if (runner.isEmpty) false
+    else {
+      runner.foreach(_.cancel())
+      runners.remove(player)
+      player.deactivateCoping()
+      true
+    }
   }
 
 }
