@@ -34,7 +34,7 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
 }
 
 object Runner {
-  val runners: collection.mutable.Map[Player, Runner] = MutableMap[Player, Runner]()
+  private val runners: collection.mutable.Map[Player, Runner] = MutableMap[Player, Runner]()
 
   def apply(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Runner = new Runner(player, effectiveTicks)(service)
 
