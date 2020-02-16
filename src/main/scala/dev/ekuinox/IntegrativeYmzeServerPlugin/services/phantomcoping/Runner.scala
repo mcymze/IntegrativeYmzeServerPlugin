@@ -50,4 +50,7 @@ object Runner {
     new Runner(player, spentTicks + effectiveTicks)(service)
   }
 
+  // プレイヤからrunnerを探して停止させる
+  def stop(player: Player): Unit = runners.find(_._1 == player).foreach(_._2.stop())
+
 }
