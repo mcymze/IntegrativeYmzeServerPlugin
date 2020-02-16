@@ -25,7 +25,7 @@ object Timer {
      */
     def activateCoping(ticks: Long): Unit = {
       container.set(namespacedKey, DATA_TYPE, "*")
-      Runner(player, ticks).start()
+      Runner.start(player, ticks)
       service.getActivationMessage.foreach(player.sendServiceMessage)
     }
 
