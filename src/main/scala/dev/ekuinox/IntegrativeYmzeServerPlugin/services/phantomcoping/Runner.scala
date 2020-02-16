@@ -36,6 +36,18 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
 object Runner {
   private val runners: collection.mutable.Map[Player, Runner] = MutableMap[Player, Runner]()
 
-  def apply(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Runner = new Runner(player, effectiveTicks)(service)
+  def apply(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Runner = {
+    /**
+     * 前に実行されていたものがあるかチェックする
+     * あればstopして、経過時間を返す
+     */
+    val spentTicks = runners.get(player) match {
+      case Some(runner) =>
+        runner.stop()
+        runner.getRemainingTicks
+      case None => 0L
+    }
+    new Runner(player, spentTicks + effectiveTicks)(service)
+  }
 
 }
