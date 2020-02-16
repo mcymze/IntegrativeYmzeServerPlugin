@@ -34,8 +34,8 @@ object CopingEffect {
      */
     def deactivateCoping(): Unit = {
       container.remove(namespacedKey)
-      Runner.stop(player)
-      service.getDeactivationMessage.foreach(player.sendServiceMessage)
+      if (!Runner.stop(player))
+        service.getDeactivationMessage.foreach(player.sendServiceMessage)
     }
   }
 
