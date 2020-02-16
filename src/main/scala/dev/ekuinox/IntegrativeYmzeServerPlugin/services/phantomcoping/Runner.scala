@@ -51,7 +51,7 @@ object Runner {
     else {
       runner.foreach(_.cancel())
       runners.remove(player)
-      player.deactivateCoping()
+      player.removeKey()
       true
     }
   }
