@@ -23,3 +23,9 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
 
   def getSpentTicks: Long = spentTicks
 }
+
+object Runner {
+
+  def apply(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Runner = new Runner(player, effectiveTicks)(service)
+
+}
