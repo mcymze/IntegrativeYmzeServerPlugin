@@ -16,7 +16,7 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
     if (spentTicks > effectiveTicks) stop()
   }
 
-  def getSpentTicks: Long = spentTicks
+  def getRemainingTicks: Long = effectiveTicks - spentTicks
 
   def start(): Unit = {
     // 毎Tick呼び出す
