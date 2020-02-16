@@ -49,6 +49,10 @@ object Runner {
     }
     new Runner(player, spentTicks + effectiveTicks)(service)
   }
+  
+  def start(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Unit = {
+    Runner(player, effectiveTicks).start()
+  }
 
   // プレイヤからrunnerを探して停止させる
   def stop(player: Player): Boolean = runners.get(player) match {
