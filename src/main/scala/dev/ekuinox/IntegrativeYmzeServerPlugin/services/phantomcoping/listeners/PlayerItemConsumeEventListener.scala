@@ -34,6 +34,10 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
          */
         if (player.getGameMode != GameMode.CREATIVE) decreaseAmount(event.getItem, player.getInventory)
 
+        /**
+         * イベントをキャンセルすることで毒などの効果を無視する
+         * 空腹度にも作用しない
+         */
         event.setCancelled(true)
       }
     }
