@@ -27,11 +27,11 @@ object Runner {
   def apply(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Runner = {
     /**
      * 前に実行されていたものがあるかチェックする
-     * あればstopして、経過時間を返す
+     * あればcancelして、経過時間を返す
      */
-    val spentTicks = runners.get(player) match {
+    val spentTicks = runners.remove(player) match {
       case Some(runner) =>
-        stop(player)
+        runner.cancel()
         runner.getRemainingTicks
       case None => 0L
     }
