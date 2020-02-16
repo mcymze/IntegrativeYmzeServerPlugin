@@ -18,12 +18,6 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
 
   def getRemainingTicks: Long = effectiveTicks - spentTicks
 
-  def start(): Unit = {
-    // 毎Tick呼び出す
-    runTaskTimer(service.getPlugin, 0L, 1L)
-    runners += (player -> this)
-  }
-
   def stop(): Unit = {
     import CopingEffect._
     player.deactivateCoping()
@@ -51,7 +45,9 @@ object Runner {
   }
   
   def start(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Unit = {
-    Runner(player, effectiveTicks).start()
+    val runner = Runner(player, effectiveTicks)
+    runner.runTaskTimer(service.getPlugin, 0L, 1L)
+    runners += (player -> runner)
   }
 
   // プレイヤからrunnerを探して停止させる
