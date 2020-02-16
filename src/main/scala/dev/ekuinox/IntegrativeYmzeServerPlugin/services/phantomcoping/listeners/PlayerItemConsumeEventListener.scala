@@ -2,9 +2,10 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Configure, PhantomCopeService}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
+import org.bukkit.GameMode
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerItemConsumeEvent
-import org.bukkit.inventory.{PlayerInventory, ItemStack}
+import org.bukkit.inventory.{ItemStack, PlayerInventory}
 
 class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) extends EventListener {
   import PlayerItemConsumeEventListener._
@@ -27,7 +28,12 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 
       import Configure.ServiceWithConfigure
       if (service.isIgnoreItemEffect) {
-        decreaseAmount(event.getItem, player.getInventory)
+        /**
+         * クリエイティブモードでなければ減算させる
+         * スペクテイターモードの場合でも通ってしまうが、まずアイテムの消費がないので無視する
+         */
+        if (player.getGameMode != GameMode.CREATIVE) decreaseAmount(event.getItem, player.getInventory)
+
         event.setCancelled(true)
       }
     }
