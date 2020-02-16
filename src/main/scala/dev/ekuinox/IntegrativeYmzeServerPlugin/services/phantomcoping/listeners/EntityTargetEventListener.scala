@@ -11,7 +11,7 @@ import scala.util.Try
 
 class EntityTargetEventListener(implicit service: PhantomCopeService) extends EventListener {
   import EntityTargetEventListener._
-  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Timer._
+  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.CopingEffect._
 
   @EventHandler
   def onEntityTarget(event: EntityTargetEvent): Unit = {

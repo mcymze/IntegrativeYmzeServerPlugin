@@ -15,7 +15,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
   def onPlayerItemConsume(event: PlayerItemConsumeEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Permissions._
     import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
-    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Timer._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.CopingEffect._
 
     /**
      * クリエイティブモードを除外する

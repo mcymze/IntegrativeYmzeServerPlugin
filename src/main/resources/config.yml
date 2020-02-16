@@ -8,6 +8,6 @@ services:
       - name: POISONOUS_POTATO # 青芋
         ticks: 1200
     messages:
-      activation: null
+      activation: null # $ticks を有効時間に置き換える
       deactivation: null
     ignore-item-effect: true # 消費したアイテムの本来の効果を無視する

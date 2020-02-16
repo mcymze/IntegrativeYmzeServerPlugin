@@ -2,17 +2,15 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
 import org.bukkit.persistence.PersistentDataType
 
-import collection.mutable.{Map => MutableMap}
 import Configure._
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils._
 import org.bukkit.entity.Player
 
-object Timer {
-  val NAMESPACED_KEY = "timer"
+object CopingEffect {
+  val NAMESPACED_KEY = "coping-effect"
   val DATA_TYPE: PersistentDataType[String, String] = PersistentDataType.STRING
-  val timers: collection.mutable.Map[Player, Runner] = MutableMap[Player, Runner]()
 
-  implicit class PlayerWithTimer(player: Player)(implicit service: PhantomCopeService) {
+  implicit class PlayerWithCopingEffect(player: Player)(implicit service: PhantomCopeService) {
     private val container = player.getPersistentDataContainer
     private val namespacedKey = service.makeNamespacedKey(NAMESPACED_KEY)
 
@@ -22,25 +20,26 @@ object Timer {
      */
     def canCope: Boolean = container.has(namespacedKey, DATA_TYPE)
 
+    def setKey(): Unit = container.set(namespacedKey, DATA_TYPE, "*")
+
+    def removeKey(): Unit = container.remove(namespacedKey)
+
     /**
      * 追跡の回避を有効にする
      */
     def activateCoping(ticks: Long): Unit = {
-      container.set(namespacedKey, DATA_TYPE, "*")
-      timers.get(player).foreach(_.cancel())
-      val runner = new Runner(player)
-      timers += (player -> runner)
-      runner.runTaskLaterAsynchronously(service.getPlugin, ticks)
-      service.getActivationMessage.foreach(player.sendServiceMessage)
+      setKey()
+      val effectiveTicks = Runner.start(player, ticks)
+      service.getActivationMessage.foreach(message => player.sendServiceMessage(message.replace("$ticks", effectiveTicks.toString)))
     }
 
     /**
      * 追跡の回避を無効にする
      */
     def deactivateCoping(): Unit = {
-      container.remove(namespacedKey)
-      timers.get(player).foreach(_.cancel())
-      service.getDeactivationMessage.foreach(player.sendServiceMessage)
+      removeKey()
+      if (!Runner.stop(player))
+        service.getDeactivationMessage.foreach(player.sendServiceMessage)
     }
   }
 
