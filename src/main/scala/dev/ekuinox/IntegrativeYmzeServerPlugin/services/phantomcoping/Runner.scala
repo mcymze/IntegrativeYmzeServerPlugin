@@ -3,9 +3,23 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
-class Runner(player: Player)(implicit service: PhantomCopeService) extends BukkitRunnable {
+class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService) extends BukkitRunnable {
+  private var spentTicks = 0L
+
+  // 毎Tick呼び出す
+  runTaskTimer(service.getPlugin, 0L, 1L)
+
   override def run(): Unit = {
     import Timer._
-    player.deactivateCoping()
+    spentTicks += 1
+
+    // 有効時間を経過
+    if (spentTicks > effectiveTicks) {
+      player.deactivateCoping()
+      Timer.timers.remove(player)
+      cancel()
+    }
   }
+
+  def getSpentTicks: Long = spentTicks
 }
