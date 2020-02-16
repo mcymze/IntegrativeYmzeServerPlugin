@@ -35,7 +35,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
       }
 
       import Configure.ServiceWithConfigure
-      if (service.isIgnoreItemEffect) {
+      if (service.isIgnoredItemEffect) {
         /**
          * インベントリからアイテムを探して減算する
          */

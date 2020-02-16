@@ -47,7 +47,7 @@ object Configure {
     /**
      * itemの効果を無視するか
      */
-    def isIgnoreItemEffect: Boolean = configure.getBoolean(makeKey("ignore-item-effect"), true)
+    def isIgnoredItemEffect: Boolean = configure.getBoolean(makeKey("ignore-item-effect"), true)
 
   }
 }
