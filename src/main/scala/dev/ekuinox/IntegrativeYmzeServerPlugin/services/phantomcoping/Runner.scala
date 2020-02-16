@@ -51,6 +51,6 @@ object Runner {
   }
 
   // プレイヤからrunnerを探して停止させる
-  def stop(player: Player): Unit = runners.find(_._1 == player).foreach(_._2.stop())
+  def stop(player: Player): Unit = runners.get(player).foreach(_.stop())
 
 }
