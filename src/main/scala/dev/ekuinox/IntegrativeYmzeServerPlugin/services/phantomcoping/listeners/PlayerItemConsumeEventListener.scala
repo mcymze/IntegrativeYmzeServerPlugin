@@ -17,8 +17,15 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
     import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Timer._
 
+    /**
+     * クリエイティブモードを除外する
+     * スペクテイターモードではアイテムの消費自体がないので無視する
+     * `cope`権限を持つユーザのみに作用する
+     * itemsに記述されたMaterialのみ対象にする
+     */
     for {
-      player <- event.getPlayer.withPermission(Cope)
+      player <- event.getPlayer.withoutCreativeMode
+      player <- player.withPermission(Cope)
       item <- event.getItem.toTargetItem
     } {
       if (player.isSneaking) {
@@ -30,11 +37,9 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
       import Configure.ServiceWithConfigure
       if (service.isIgnoreItemEffect) {
         /**
-         * クリエイティブモードでなければ減算させる
-         * スペクテイターモードの場合でも通ってしまうが、まずアイテムの消費がないので無視する
+         * インベントリからアイテムを探して減算する
          */
-        if (player.getGameMode != GameMode.CREATIVE) decreaseAmount(event.getItem, player.getInventory)
-
+        decreaseAmount(event.getItem, player.getInventory)
         /**
          * イベントをキャンセルすることで毒などの効果を無視する
          * 空腹度にも作用しない
