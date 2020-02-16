@@ -35,7 +35,7 @@ object Runner {
         runner.getRemainingTicks
       case None => 0L
     }
-    new Runner(player, spentTicks + effectiveTicks)(service)
+    new Runner(player, spentTicks + effectiveTicks)
   }
   
   def start(player: Player, effectiveTicks: Long)(implicit service: PhantomCopeService): Unit = {
