@@ -25,6 +25,23 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
       } else {
         player.activateCoping(item.ticks)
       }
+
+      import Configure.ServiceWithConfigure
+      if (service.isIgnoreItemEffect) {
+        val item = event.getItem
+        item.setAmount(item.getAmount - 1)
+
+        /**
+         * プレイヤのインベントリに更新をかける
+         * 右手(MainHand)にあるアイテムが優先して消費されるはず
+         * Materialを比較して先に一致した方で更新する
+         */
+        val inventory = player.getInventory
+        if (item.getType == inventory.getItemInMainHand.getType) inventory.setItemInMainHand(item)
+        else if (item.getType == inventory.getItemInOffHand.getType) inventory.setItemInOffHand(item)
+
+        event.setCancelled(true)
+      }
     }
   }
 }
