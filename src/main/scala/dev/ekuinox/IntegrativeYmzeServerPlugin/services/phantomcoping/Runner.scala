@@ -10,15 +10,10 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
   private var spentTicks = 0L
 
   override def run(): Unit = {
-    import Timer._
     spentTicks += 1
 
     // 有効時間を経過
-    if (spentTicks > effectiveTicks) {
-      player.deactivateCoping()
-      runners.remove(player)
-      cancel()
-    }
+    if (spentTicks > effectiveTicks) stop()
   }
 
   def getSpentTicks: Long = spentTicks
@@ -27,6 +22,13 @@ class Runner(player: Player, effectiveTicks: Long)(implicit service: PhantomCope
     // 毎Tick呼び出す
     runTaskTimer(service.getPlugin, 0L, 1L)
     runners += (player -> this)
+  }
+
+  def stop(): Unit = {
+    import Timer._
+    player.deactivateCoping()
+    runners.remove(player)
+    cancel()
   }
 
 }
