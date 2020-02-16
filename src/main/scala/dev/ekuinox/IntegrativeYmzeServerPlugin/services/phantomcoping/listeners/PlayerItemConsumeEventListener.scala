@@ -2,7 +2,6 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Configure, PhantomCopeService}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
-import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.ItemStack
