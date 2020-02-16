@@ -3,6 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.{Configure, PhantomCopeService}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.GameMode
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.{ItemStack, PlayerInventory}
@@ -48,6 +49,9 @@ object PlayerItemConsumeEventListener {
   import Configure._
   implicit class ItemStackExtends(itemStack: ItemStack)(implicit service: PhantomCopeService) {
     def toTargetItem: Option[TargetItem] = service.getTargetItems.find(_.material == itemStack.getType)
+  }
+  implicit class PlayerWithoutCreativeMode(player: Player) {
+    def withoutCreativeMode: Option[Player] = if (player.getGameMode == GameMode.CREATIVE) None else Some(player)
   }
 
   /**
