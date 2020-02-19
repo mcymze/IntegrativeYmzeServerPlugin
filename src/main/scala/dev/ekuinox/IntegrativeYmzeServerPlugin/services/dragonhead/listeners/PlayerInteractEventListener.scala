@@ -22,9 +22,11 @@ object PlayerInteractEventListener {
       case _ => None
     }
     def withOffHand: Option[PlayerInteractEvent] = if (event.getHand == EquipmentSlot.OFF_HAND) Some(event) else None
+    def withDragonHead: Option[PlayerInteractEvent] = if (event.getItem.getType == Material.DRAGON_HEAD) Some(event) else None
     def withMatch: Option[PlayerInteractEvent] = for {
       event <- withRightClick
       event <- withOffHand
+      event <- withDragonHead
     } yield event
   }
 }
