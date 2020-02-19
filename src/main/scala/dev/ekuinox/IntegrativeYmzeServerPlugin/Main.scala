@@ -7,9 +7,10 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Main extends JavaPlugin {
   implicit val self: Main = this
+  lazy val central = new Central
   lazy val services = Seq(
     new PhantomCopeService,
-    new Central
+    central
   )
 
   override def onEnable(): Unit = {
@@ -23,7 +24,7 @@ class Main extends JavaPlugin {
       service <- services.find(_.subCommand == subCommand)
     } yield (subCommand, service)) match {
       case Some((_, service)) => service.onCommand(sender, args.toList.tail)
-      case None => services.find(_.name == Central.NAME).foreach(_.onCommand(sender, args.toList))
+      case None => central.onCommand(sender, args.toList)
     }
     true
   }
