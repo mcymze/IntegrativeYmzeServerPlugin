@@ -16,5 +16,15 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 }
 
 object PlayerInteractEventListener {
-
+  implicit class MatchPlayerInteractEvent(event: PlayerInteractEvent) {
+    def withRightClick: Option[PlayerInteractEvent] = event.getAction match {
+      case Action.RIGHT_CLICK_AIR | Action.RIGHT_CLICK_AIR => Some(event)
+      case _ => None
+    }
+    def withOffHand: Option[PlayerInteractEvent] = if (event.getHand == EquipmentSlot.OFF_HAND) Some(event) else None
+    def withMatch: Option[PlayerInteractEvent] = for {
+      event <- withRightClick
+      event <- withOffHand
+    } yield event
+  }
 }
