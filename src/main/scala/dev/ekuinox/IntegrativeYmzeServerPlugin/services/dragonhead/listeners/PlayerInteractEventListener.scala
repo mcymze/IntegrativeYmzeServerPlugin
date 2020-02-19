@@ -2,15 +2,28 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
+import org.bukkit.Material
+import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
+import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.EquipmentSlot
 
 class PlayerInteractEventListener(implicit service: DragonHeadService) extends EventListener {
   import PlayerInteractEventListener._
+  import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
+  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.permissions._
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.InteractTimer._
+    for {
+      event <- event.withMatch
+      player <- event.getPlayer.withPermission(Fire)
+      player <- player.withInteractTimerStop
+    } {
+      // to do
+    }
   }
 
 }
