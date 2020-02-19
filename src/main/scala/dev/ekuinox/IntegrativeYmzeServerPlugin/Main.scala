@@ -1,6 +1,7 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.central.Central
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Service
 import org.bukkit.command.{Command, CommandSender}
@@ -10,6 +11,7 @@ class Main extends JavaPlugin {
   implicit val self: Main = this
   lazy val services: Map[String, Service] = Seq(
     new PhantomCopeService,
+    new DragonHeadService,
     new Central
   ).map(service => (service.name, service)).toMap
 
