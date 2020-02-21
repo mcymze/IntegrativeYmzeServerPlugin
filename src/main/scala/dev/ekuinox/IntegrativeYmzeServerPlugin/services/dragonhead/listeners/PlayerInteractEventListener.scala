@@ -24,7 +24,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
     } {
       val speed = 1
       val world = player.getWorld
-      val fireball = world.spawn[Fireball](player.getEyeLocation, classOf[Fireball])
+      val fireball = world.spawn(player.getEyeLocation, classOf[Fireball])
       fireball.setVelocity(player.getEyeLocation.getDirection.multiply(speed))
       fireball.setShooter(player)
       // to do
