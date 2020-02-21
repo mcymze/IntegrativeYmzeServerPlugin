@@ -15,6 +15,7 @@ object InteractTimer {
     def isInteractTimerStop: Boolean = !container.has(namespacedKey, TYPE)
     // タイマを開始させる
     def startInteractTimer(): Unit = {
+      container.set(namespacedKey, TYPE, "*")
       new BukkitRunnable {
         override def run(): Unit = container.remove(namespacedKey)
       }.runTaskLaterAsynchronously(service.getPlugin, DELAY)
