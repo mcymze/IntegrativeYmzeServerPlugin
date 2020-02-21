@@ -22,12 +22,15 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       player <- event.getPlayer.withPermission(Fire)
       player <- player.withInteractTimerStop
     } {
+      import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure._
+
       val speed = 1
       val world = player.getWorld
       val fireball = world.spawn(player.getEyeLocation, classOf[Fireball])
       fireball.setVelocity(player.getEyeLocation.getDirection.multiply(speed))
       fireball.setShooter(player)
-      // to do
+      fireball.setIsIncendiary(isTriggerFire())
+      fireball.setYield(getExplosiveRadius())
 
       event.setCancelled(true)
     }
