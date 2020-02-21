@@ -3,7 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
-import org.bukkit.entity.Player
+import org.bukkit.entity.{Fireball, Player, Projectile}
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -22,6 +22,11 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       player <- event.getPlayer.withPermission(Fire)
       player <- player.withInteractTimerStop
     } {
+      val speed = 1
+      val world = player.getWorld
+      val fireball = world.spawn[Fireball](player.getEyeLocation, classOf[Fireball])
+      fireball.setVelocity(player.getEyeLocation.getDirection.multiply(speed))
+      fireball.setShooter(player)
       // to do
     }
   }
