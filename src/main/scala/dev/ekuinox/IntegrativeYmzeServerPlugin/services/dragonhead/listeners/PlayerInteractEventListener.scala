@@ -28,6 +28,8 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       fireball.setVelocity(player.getEyeLocation.getDirection.multiply(speed))
       fireball.setShooter(player)
       // to do
+
+      event.setCancelled(true)
     }
   }
 
