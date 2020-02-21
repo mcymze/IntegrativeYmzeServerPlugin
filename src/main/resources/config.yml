@@ -11,3 +11,8 @@ services:
       activation: null # $ticks を有効時間に置き換える
       deactivation: null
     ignore-item-effect: true # 消費したアイテムの本来の効果を無視する
+
+  # DragonHeadService
+  dragon-head:
+    is-trigger-fire: false
+    explosive-radius: 0.0
