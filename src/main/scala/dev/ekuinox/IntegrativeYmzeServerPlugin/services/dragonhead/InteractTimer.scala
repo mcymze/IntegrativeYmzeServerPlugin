@@ -12,7 +12,7 @@ object InteractTimer {
     private val namespacedKey = service.makeNamespacedKey(KEY)
     private val container = player.getPersistentDataContainer
     // タイマが停止しているか
-    def isInteractTimerStop: Boolean = container.has(namespacedKey, TYPE)
+    def isInteractTimerStop: Boolean = !container.has(namespacedKey, TYPE)
     // タイマを開始させる
     def startInteractTimer(): Unit = {
       new BukkitRunnable {
