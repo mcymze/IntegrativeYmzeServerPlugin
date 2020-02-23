@@ -14,7 +14,7 @@ resolvers ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.spigotmc" % "spigot-api" % "1.15.1-R0.1-SNAPSHOT"
+  "org.spigotmc" % "spigot-api" % "1.15.2-R0.1-SNAPSHOT"
 )
 
 assemblyJarName in assembly := s"IntegrativeYamazoe-${version.value}.jar"
