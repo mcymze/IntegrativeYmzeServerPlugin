@@ -16,3 +16,4 @@ services:
   dragon-head:
     is-trigger-fire: false
     explosive-radius: 0.0
+    cool-time: 1
