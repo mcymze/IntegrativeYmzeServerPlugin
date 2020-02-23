@@ -32,6 +32,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       fireball.setIsIncendiary(isTriggerFire())
       fireball.setYield(getExplosiveRadius())
 
+      player.startInteractTimer()
       event.setCancelled(true)
     }
   }
