@@ -24,10 +24,9 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
     } {
       import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure._
 
-      val speed = 1
       val world = player.getWorld
       val fireball = world.spawn(player.getEyeLocation, classOf[Fireball])
-      fireball.setVelocity(player.getEyeLocation.getDirection.multiply(speed))
+      fireball.setVelocity(player.getEyeLocation.getDirection.multiply(getFireballSpeed()))
       fireball.setShooter(player)
       fireball.setIsIncendiary(isTriggerFire())
       fireball.setYield(getExplosiveRadius())
