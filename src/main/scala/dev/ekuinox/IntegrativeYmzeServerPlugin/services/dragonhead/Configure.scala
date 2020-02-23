@@ -27,4 +27,10 @@ object Configure {
    */
   def getCoolTimeTicks()(implicit service: DragonHeadService): Int =
     get("cool-time")((conf, path) => conf.getInt(path, 20))
+
+  /**
+   * Fireballの速度
+   */
+  def getFireballSpeed()(implicit service: DragonHeadService): Int =
+    get("fireball-speed")((conf, path) => conf.getInt(path, 1))
 }
