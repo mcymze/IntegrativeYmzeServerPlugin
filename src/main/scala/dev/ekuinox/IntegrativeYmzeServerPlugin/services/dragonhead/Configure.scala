@@ -21,6 +21,5 @@ object Configure {
    */
   def isTriggerFire()(implicit service: DragonHeadService): Boolean =
     get("is-trigger-fire")((conf, path) => conf.getBoolean(path, false))
-  }
 
 }
