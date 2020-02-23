@@ -26,5 +26,5 @@ object Configure {
    * 何ticks間隔をあけるか
    */
   def getCoolTimeTicks()(implicit service: DragonHeadService): Int =
-    get("cool-time")((conf, path) => conf.getInt(path, 1))
+    get("cool-time")((conf, path) => conf.getInt(path, 20))
 }
