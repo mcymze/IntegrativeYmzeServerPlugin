@@ -3,7 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
-import org.bukkit.entity.{Fireball, Player, Projectile}
+import org.bukkit.entity.Fireball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -32,6 +32,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       fireball.setIsIncendiary(isTriggerFire())
       fireball.setYield(getExplosiveRadius())
 
+      player.startInteractTimer()
       event.setCancelled(true)
     }
   }
