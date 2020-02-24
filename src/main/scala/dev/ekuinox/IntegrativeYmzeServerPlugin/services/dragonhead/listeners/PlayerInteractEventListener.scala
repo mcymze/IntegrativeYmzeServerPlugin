@@ -34,6 +34,9 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
       val player = event.getPlayer
 
+      // 権限を所持しているか
+      if (!player.hasPermission(Fire)) return
+
       // タイマが進んでいる
       if (!player.isInteractTimerStop) return
 
