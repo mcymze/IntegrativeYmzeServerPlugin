@@ -11,6 +11,8 @@ services:
       activation: null # $ticks を有効時間に置き換える
       deactivation: null
     ignore-item-effect: true # 消費したアイテムの本来の効果を無視する
+    cancel-indoor: true # 屋内でのスポーンをキャンセルするか
+    max-altitude: 256 # 屋内かの判定を高度どこまで行うか
 
   # DragonHeadService
   dragon-head:
