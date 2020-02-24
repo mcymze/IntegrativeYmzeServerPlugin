@@ -13,6 +13,9 @@ class CreatureSpawnEventListener(implicit service: PhantomCopeService) extends E
 
   @EventHandler
   def onCreatureSpawn(event: CreatureSpawnEvent): Unit = {
+    // 機能が有効でない場合蹴る
+    if (!service.isCancelingSpawningPhantomIndoor) return
+
     // ファントムじゃない場合蹴る
     if (event.getEntity.getType != EntityType.PHANTOM) return
 
