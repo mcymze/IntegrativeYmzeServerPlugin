@@ -13,7 +13,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Fireball._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
 
     for {
       // itemはnullableなので

@@ -4,7 +4,7 @@ import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure.{ge
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.permissions.Fire
 import org.bukkit.entity.{Fireball, Player}
 
-object Fireball {
+object FireballShooter {
 
   implicit class FireballShooterExtended(player: Player) {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.InteractTimer._
