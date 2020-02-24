@@ -3,6 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
+import org.bukkit.entity.Fireball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -32,7 +33,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       event.setCancelled(true)
 
       // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
-      event.getPlayer.shootFireball()
+      event.getPlayer.shootFireball(classOf[Fireball])
     }
   }
 
