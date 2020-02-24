@@ -19,6 +19,5 @@ object InteractTimer {
         override def run(): Unit = container.remove(namespacedKey)
       }.runTaskLaterAsynchronously(service.getPlugin, Configure.getCoolTimeTicks())
     }
-    def withInteractTimerStop: Option[Player] = if (isInteractTimerStop) Some(player) else None
   }
 }
