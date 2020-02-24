@@ -9,6 +9,7 @@ import org.bukkit.event.entity.CreatureSpawnEvent
 
 class CreatureSpawnEventListener(implicit service: PhantomCopeService) extends EventListener {
   import CreatureSpawnEventListener._
+  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.Configure._
 
   @EventHandler
   def onCreatureSpawn(event: CreatureSpawnEvent): Unit = {
@@ -16,7 +17,7 @@ class CreatureSpawnEventListener(implicit service: PhantomCopeService) extends E
     if (event.getEntity.getType != EntityType.PHANTOM) return
 
     // 屋内の場合キャンセルする
-    if (event.getLocation.getBlock.isIndoor()) {
+    if (event.getLocation.getBlock.isIndoor(service.getMaxAltitude)) {
       event.setCancelled(true)
     }
 
