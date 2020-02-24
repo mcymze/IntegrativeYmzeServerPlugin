@@ -52,12 +52,12 @@ object Configure {
     /**
      * ファントムを屋内で沸かせない（ガラスの下だと湧いてしまうので）
      */
-    def isCancelingSpawningPhantomIndoor: Boolean = configure.getBoolean("cancel-indoor", true)
+    def isCancelingSpawningPhantomIndoor: Boolean = configure.getBoolean(makeKey("cancel-indoor"), true)
 
     /**
      * 屋内かの検索をかける最大高度
      */
-    def getMaxAltitude: Int = configure.getInt("max-altitude", 256)
+    def getMaxAltitude: Int = configure.getInt(makeKey("max-altitude"), 256)
 
   }
 }
