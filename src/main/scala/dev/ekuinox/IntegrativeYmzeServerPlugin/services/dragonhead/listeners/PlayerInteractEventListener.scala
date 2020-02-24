@@ -7,7 +7,7 @@ import org.bukkit.entity.Fireball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
-import org.bukkit.inventory.EquipmentSlot
+import org.bukkit.inventory.{EquipmentSlot, ItemStack}
 
 class PlayerInteractEventListener(implicit service: DragonHeadService) extends EventListener {
   import PlayerInteractEventListener._
@@ -17,14 +17,28 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.InteractTimer._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure._
+
     for {
-      event <- event.withMatch
-      player <- event.getPlayer.withPermission(Fire)
-      player <- player.withInteractTimerStop
+      // itemはnullableなので
+      item <- event.getItemOption
     } {
-      import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure._
+      // 右クリじゃないと発火しない
+      if (!event.isRightClick) return
+
+      // 左手によるイベントじゃないと発火しない
+      if (!event.isOffHand) return
+
+      // ドラゴン頭じゃないと発火しない
+      if (!item.isDragonHead) return
+
+      val player = event.getPlayer
+
+      // タイマが進んでいる
+      if (!player.isInteractTimerStop) return
 
       val world = player.getWorld
+
       val fireball = world.spawn(player.getEyeLocation, classOf[Fireball])
       fireball.setVelocity(player.getEyeLocation.getDirection.multiply(getFireballSpeed()))
       fireball.setShooter(player)
@@ -40,16 +54,12 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
 object PlayerInteractEventListener {
   implicit class MatchPlayerInteractEvent(event: PlayerInteractEvent) {
-    def withRightClick: Option[PlayerInteractEvent] = event.getAction match {
-      case Action.RIGHT_CLICK_AIR | Action.RIGHT_CLICK_BLOCK => Some(event)
-      case _ => None
-    }
-    def withOffHand: Option[PlayerInteractEvent] = if (event.getHand == EquipmentSlot.OFF_HAND) Some(event) else None
-    def withDragonHead: Option[PlayerInteractEvent] = Option(event.getItem).flatMap(item => if (item.getType == Material.DRAGON_HEAD) Some(event) else None)
-    def withMatch: Option[PlayerInteractEvent] = for {
-      event <- withRightClick
-      event <- withOffHand
-      event <- withDragonHead
-    } yield event
+    def getItemOption: Option[ItemStack] = Option(event.getItem)
+    def isRightClick: Boolean = event.getAction == Action.RIGHT_CLICK_AIR || event.getAction == Action.RIGHT_CLICK_BLOCK
+    def isOffHand: Boolean = event.getHand == EquipmentSlot.OFF_HAND
+  }
+
+  implicit class ItemStackExtended(itemStack: ItemStack) {
+    def isDragonHead: Boolean = itemStack.getType == Material.DRAGON_HEAD
   }
 }
