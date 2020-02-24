@@ -1,6 +1,6 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping
 
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners.{EntityTargetEventListener, PlayerItemConsumeEventListener}
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.listeners.{CreatureSpawnEventListener, EntityTargetEventListener, PlayerItemConsumeEventListener}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.{EventListener, Service}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.{Main => Plugin}
 
@@ -17,7 +17,8 @@ class PhantomCopeService(implicit plugin: Plugin) extends Service {
   // このクラスで利用するListener
   override val eventListeners = Seq(
     new PlayerItemConsumeEventListener,
-    new EntityTargetEventListener
+    new EntityTargetEventListener,
+    new CreatureSpawnEventListener
   )
 
 }
