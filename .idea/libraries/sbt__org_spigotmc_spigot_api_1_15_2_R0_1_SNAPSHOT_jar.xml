@@ -2,12 +2,15 @@
   <library name="sbt: org.spigotmc:spigot-api:1.15.2-R0.1-SNAPSHOT:jar">
     <CLASSES>
       <root url="jar://$USER_HOME$/.coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200222.233704-63.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200223.080703-65.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200222.233704-63-javadoc.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200223.080703-65-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200222.233704-63-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Coursier/cache/v1/https/hub.spigotmc.org/nexus/content/repositories/snapshots/org/spigotmc/spigot-api/1.15.2-R0.1-SNAPSHOT/spigot-api-1.15.2-R0.1-20200223.080703-65-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
