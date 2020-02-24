@@ -3,7 +3,6 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
-import org.bukkit.entity.Fireball
 import org.bukkit.event.EventHandler
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
@@ -11,13 +10,10 @@ import org.bukkit.inventory.{EquipmentSlot, ItemStack}
 
 class PlayerInteractEventListener(implicit service: DragonHeadService) extends EventListener {
   import PlayerInteractEventListener._
-  import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.Permissions._
-  import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.permissions._
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.InteractTimer._
-    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure._
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Fireball._
 
     for {
       // itemはnullableなので
@@ -32,24 +28,11 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       // ドラゴン頭じゃないと発火しない
       if (!item.isDragonHead) return
 
-      val player = event.getPlayer
-
-      // 権限を所持しているか
-      if (!player.hasPermission(Fire)) return
-
-      // タイマが進んでいる
-      if (!player.isInteractTimerStop) return
-
-      val world = player.getWorld
-
-      val fireball = world.spawn(player.getEyeLocation, classOf[Fireball])
-      fireball.setVelocity(player.getEyeLocation.getDirection.multiply(getFireballSpeed()))
-      fireball.setShooter(player)
-      fireball.setIsIncendiary(isTriggerFire())
-      fireball.setYield(getExplosiveRadius())
-
-      player.startInteractTimer()
+      // どうあれドラゴン頭の右手使用はキャンセルする
       event.setCancelled(true)
+
+      // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
+      event.getPlayer.shootFireball()
     }
   }
 
