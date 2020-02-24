@@ -16,10 +16,10 @@ object FireballShooter {
      */
     def shootFireball()(implicit service: DragonHeadService): Option[Fireball] = {
       // 権限を所持しているか
-      if (!player.hasPermission(Fire)) None
+      if (!player.hasPermission(Fire)) return None
 
       // タイマが進んでいる
-      if (!player.isInteractTimerStop) None
+      if (!player.isInteractTimerStop) return None
 
       // ファイアボールをスポーンさせる
       val fireball = player.getWorld.spawn(player.getEyeLocation, classOf[Fireball])
