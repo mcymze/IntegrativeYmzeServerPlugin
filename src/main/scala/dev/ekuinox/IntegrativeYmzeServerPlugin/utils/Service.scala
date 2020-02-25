@@ -3,6 +3,7 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin.utils
 import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
 import org.bukkit.NamespacedKey
 import org.bukkit.command.CommandSender
+import org.bukkit.configuration.file.FileConfiguration
 
 abstract class Service(implicit val main: Main) {
   import Service._
@@ -23,6 +24,11 @@ abstract class Service(implicit val main: Main) {
   def makeConfigurePath(key: String): String = makePath(configurePath, key)
 
   def reloadConfig(): Unit = main.reloadConfig()
+
+  /**
+   * 相対パスを受け取る => FileConfiguration, 絶対パス => 任意の型
+   */
+  def getConf[T](path: String)(callback: (FileConfiguration, String) => T): T = callback(getPlugin.getConfig, makeConfigurePath(path))
 
   /**
    * permission 管理
