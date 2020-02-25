@@ -20,3 +20,5 @@ services:
     explosive-radius: 0.0
     cool-time: 20
     fireball-speed: 1
+    enable-jetpack: true
+    multiply-jetpack: 1.0
