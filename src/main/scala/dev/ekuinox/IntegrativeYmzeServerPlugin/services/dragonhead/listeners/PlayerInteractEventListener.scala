@@ -17,10 +17,8 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
 
     if (event.isRightClick) {
-      for {
-        // itemはnullableなので
-        item <- event.getItemOption
-      } {
+      // itemはnullableなので
+      for { item <- event.getItemOption } {
         // 左手によるイベントじゃないと発火しない
         if (!event.isOffHand) return
 
