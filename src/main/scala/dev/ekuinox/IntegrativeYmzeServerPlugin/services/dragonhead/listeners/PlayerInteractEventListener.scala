@@ -16,35 +16,39 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
+    (if (event.isRightClick) onRightClick _ else onLeftClick _)(event)
+  }
+
+  // 右手での使用 -> Fireballの発射
+  def onRightClick(event: PlayerInteractEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
+    for {item <- event.getItemOption} {
+      // 左手によるイベントじゃないと発火しない
+      if (!event.isOffHand) return
 
-    if (event.isRightClick) {
-      // itemはnullableなので
-      for { item <- event.getItemOption } {
-        // 左手によるイベントじゃないと発火しない
-        if (!event.isOffHand) return
+      // ドラゴン頭じゃないと発火しない
+      if (!item.isDragonHead) return
 
-        // ドラゴン頭じゃないと発火しない
-        if (!item.isDragonHead) return
+      // どうあれドラゴン頭の右手使用はキャンセルする
+      event.setCancelled(true)
 
-        // どうあれドラゴン頭の右手使用はキャンセルする
-        event.setCancelled(true)
-
-        // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
-        event.getPlayer.shootFireball(classOf[Fireball])
-      }
-    } else { // Left Click
-      if (!isEnabledJetPack) return
-
-      val player = event.getPlayer
-
-      if (!player.hasPermission(JetPack)) return
-
-      // 左手にドラゴン頭を持っていないと発動しない
-      if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
-
-      player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
+      // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
+      event.getPlayer.shootFireball(classOf[Fireball])
     }
+  }
+
+  // 左手での使用 -> ジェットパック効果
+  def onLeftClick(event: PlayerInteractEvent): Unit = {
+    if (!isEnabledJetPack) return
+
+    val player = event.getPlayer
+
+    if (!player.hasPermission(JetPack)) return
+
+    // 左手にドラゴン頭を持っていないと発動しない
+    if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
+
+    player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
   }
 
 }
