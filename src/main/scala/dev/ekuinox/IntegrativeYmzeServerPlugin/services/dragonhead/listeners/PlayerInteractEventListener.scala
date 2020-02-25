@@ -1,6 +1,8 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure.{getJetPackMultiplyVelocity, isEnabledJetPack}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.permissions.JetPack
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
 import org.bukkit.entity.Fireball
@@ -31,6 +33,17 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
         // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
         event.getPlayer.shootFireball(classOf[Fireball])
       }
+    } else { // Left Click
+      if (!isEnabledJetPack) return
+
+      val player = event.getPlayer
+
+      if (!player.hasPermission(JetPack)) return
+
+      // 左手にドラゴン頭を持っていないと発動しない
+      if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
+
+      player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
     }
   }
 
