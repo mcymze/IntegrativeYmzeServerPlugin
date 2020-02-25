@@ -1,7 +1,7 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.Main
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners.{EntityDamageEventListener, PlayerInteractEventListener}
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners.{EntityDamageEventListener, PlayerInteractEventListener, PlayerMoveEventListener}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.{EventListener, Service}
 
 class DragonHeadService(implicit main: Main) extends Service {
@@ -11,6 +11,7 @@ class DragonHeadService(implicit main: Main) extends Service {
    */
   override val eventListeners: Seq[EventListener] = Seq(
     new PlayerInteractEventListener()(this),
-    new EntityDamageEventListener()(this)
+    new EntityDamageEventListener()(this),
+    new PlayerMoveEventListener()(this)
   )
 }
