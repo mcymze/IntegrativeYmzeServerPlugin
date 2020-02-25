@@ -34,8 +34,8 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
         player.activateCoping(item.ticks)
       }
 
-      import Configure.ServiceWithConfigure
-      if (service.isIgnoredItemEffect) {
+      import Configure._
+      if (isIgnoredItemEffect) {
         /**
          * インベントリからアイテムを探して減算する
          */
@@ -53,7 +53,7 @@ class PlayerItemConsumeEventListener(implicit service: PhantomCopeService) exten
 object PlayerItemConsumeEventListener {
   import Configure._
   implicit class ItemStackExtends(itemStack: ItemStack)(implicit service: PhantomCopeService) {
-    def toTargetItem: Option[TargetItem] = service.getTargetItems.find(_.material == itemStack.getType)
+    def toTargetItem: Option[TargetItem] = getTargetItems.find(_.material == itemStack.getType)
   }
   implicit class PlayerWithoutCreativeMode(player: Player) {
     def withoutCreativeMode: Option[Player] = if (player.getGameMode == GameMode.CREATIVE) None else Some(player)

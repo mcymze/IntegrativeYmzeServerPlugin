@@ -30,7 +30,7 @@ object CopingEffect {
     def activateCoping(ticks: Long): Unit = {
       setKey()
       val effectiveTicks = Runner.start(player, ticks)
-      service.getActivationMessage.foreach(message => player.sendServiceMessage(message.replace("$ticks", effectiveTicks.toString)))
+      getActivationMessage.foreach(message => player.sendServiceMessage(message.replace("$ticks", effectiveTicks.toString)))
     }
 
     /**
@@ -39,7 +39,7 @@ object CopingEffect {
     def deactivateCoping(): Unit = {
       removeKey()
       if (!Runner.stop(player))
-        service.getDeactivationMessage.foreach(player.sendServiceMessage)
+        getDeactivationMessage.foreach(player.sendServiceMessage)
     }
   }
 
