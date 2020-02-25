@@ -39,6 +39,8 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   // 左手での使用 -> ジェットパック効果
   def onLeftClick(event: PlayerInteractEvent): Unit = {
+    import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.ImplicitPlayerExtended._
+
     if (!isEnabledJetPack) return
 
     val player = event.getPlayer
@@ -49,6 +51,9 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
     if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
 
     player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
+
+    // 今飛んでますよ～
+    player.activateDragonFlight()
   }
 
 }
