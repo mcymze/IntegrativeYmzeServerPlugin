@@ -2,7 +2,6 @@ package dev.ekuinox.IntegrativeYmzeServerPlugin
 
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.central.Central
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
-import dev.ekuinox.IntegrativeYmzeServerPlugin.services.jetpack.JetPackService
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.phantomcoping.PhantomCopeService
 import org.bukkit.command.{Command, CommandSender}
 import org.bukkit.plugin.java.JavaPlugin
@@ -13,7 +12,6 @@ class Main extends JavaPlugin {
   lazy val services = Seq(
     new PhantomCopeService,
     new DragonHeadService,
-    new JetPackService,
     central
   )
 
