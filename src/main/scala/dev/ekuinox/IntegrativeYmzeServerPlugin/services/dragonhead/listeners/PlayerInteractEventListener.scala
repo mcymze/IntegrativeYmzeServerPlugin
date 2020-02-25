@@ -1,6 +1,8 @@
 package dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.listeners
 
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.Configure.{getJetPackMultiplyVelocity, isEnabledJetPack}
 import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.DragonHeadService
+import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.permissions.JetPack
 import dev.ekuinox.IntegrativeYmzeServerPlugin.utils.EventListener
 import org.bukkit.Material
 import org.bukkit.entity.Fireball
@@ -14,15 +16,13 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
+    (if (event.isRightClick) onRightClick _ else onLeftClick _)(event)
+  }
+
+  // 右手での使用 -> Fireballの発射
+  def onRightClick(event: PlayerInteractEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
-
-    for {
-      // itemはnullableなので
-      item <- event.getItemOption
-    } {
-      // 右クリじゃないと発火しない
-      if (!event.isRightClick) return
-
+    event.getItemOption.foreach { item =>
       // 左手によるイベントじゃないと発火しない
       if (!event.isOffHand) return
 
@@ -35,6 +35,20 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
       event.getPlayer.shootFireball(classOf[Fireball])
     }
+  }
+
+  // 左手での使用 -> ジェットパック効果
+  def onLeftClick(event: PlayerInteractEvent): Unit = {
+    if (!isEnabledJetPack) return
+
+    val player = event.getPlayer
+
+    if (!player.hasPermission(JetPack)) return
+
+    // 左手にドラゴン頭を持っていないと発動しない
+    if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
+
+    player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
   }
 
 }

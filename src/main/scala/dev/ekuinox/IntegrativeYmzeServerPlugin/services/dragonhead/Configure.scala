@@ -25,4 +25,17 @@ object Configure {
    */
   def getFireballSpeed()(implicit service: DragonHeadService): Int =
     service.getConf("fireball-speed")((conf, path) => conf.getInt(path, 1))
+
+  /**
+   * JetPackを有効にするか
+   */
+  def isEnabledJetPack(implicit service: DragonHeadService): Boolean =
+    service.getConf("enable-jetpack")((conf, path) => conf.getBoolean(path, true))
+
+  /**
+   * getEyeLocation.getDirection.multiplyに与える引数
+   */
+  def getJetPackMultiplyVelocity(implicit service: DragonHeadService): Double =
+    service.getConf("multiply-jetpack")((conf, path) => conf.getDouble(path, 1.0d))
+
 }
