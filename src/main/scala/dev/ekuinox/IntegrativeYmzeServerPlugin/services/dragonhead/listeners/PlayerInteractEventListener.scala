@@ -16,24 +16,23 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
 
-    for {
-      // itemはnullableなので
-      item <- event.getItemOption
-    } {
-      // 右クリじゃないと発火しない
-      if (!event.isRightClick) return
+    if (event.isRightClick) {
+      for {
+        // itemはnullableなので
+        item <- event.getItemOption
+      } {
+        // 左手によるイベントじゃないと発火しない
+        if (!event.isOffHand) return
 
-      // 左手によるイベントじゃないと発火しない
-      if (!event.isOffHand) return
+        // ドラゴン頭じゃないと発火しない
+        if (!item.isDragonHead) return
 
-      // ドラゴン頭じゃないと発火しない
-      if (!item.isDragonHead) return
+        // どうあれドラゴン頭の右手使用はキャンセルする
+        event.setCancelled(true)
 
-      // どうあれドラゴン頭の右手使用はキャンセルする
-      event.setCancelled(true)
-
-      // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
-      event.getPlayer.shootFireball(classOf[Fireball])
+        // ファイアボールを発射する => 発射された場合にFireballが返るが特に利用することがない
+        event.getPlayer.shootFireball(classOf[Fireball])
+      }
     }
   }
 
