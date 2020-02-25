@@ -38,4 +38,10 @@ object Configure {
   def getJetPackMultiplyVelocity(implicit service: DragonHeadService): Double =
     service.getConf("multiply-jetpack")((conf, path) => conf.getDouble(path, 1.0d))
 
+  /**
+   * JetPackによる落下ダメージを無効にするか
+   */
+  def isIgnoredJetPackFallingDamage(implicit service: DragonHeadService): Boolean =
+    service.getConf("ignore-jetpack-falling-damage")((conf, path) => conf.getBoolean(path, true))
+
 }

@@ -22,3 +22,4 @@ services:
     fireball-speed: 1
     enable-jetpack: true
     multiply-jetpack: 1.0
+    ignore-jetpack-falling-damage: true
