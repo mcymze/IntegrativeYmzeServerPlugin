@@ -22,7 +22,7 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
   // 右手での使用 -> Fireballの発射
   def onRightClick(event: PlayerInteractEvent): Unit = {
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.FireballShooter._
-    for {item <- event.getItemOption} {
+    event.getItemOption.foreach { item =>
       // 左手によるイベントじゃないと発火しない
       if (!event.isOffHand) return
 
