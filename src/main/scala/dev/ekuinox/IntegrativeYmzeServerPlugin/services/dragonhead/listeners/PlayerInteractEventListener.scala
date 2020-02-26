@@ -16,7 +16,11 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-    (if (event.isRightClick) onRightClick _ else onLeftClick _)(event)
+    if (event.getAction.isRightClick) {
+      onRightClick(event)
+    } else if (event.getAction.isLeftClick) {
+      onLeftClick(event)
+    }
   }
 
   // 右手での使用 -> Fireballの発射
@@ -61,8 +65,14 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 object PlayerInteractEventListener {
   implicit class MatchPlayerInteractEvent(event: PlayerInteractEvent) {
     def getItemOption: Option[ItemStack] = Option(event.getItem)
-    def isRightClick: Boolean = event.getAction == Action.RIGHT_CLICK_AIR || event.getAction == Action.RIGHT_CLICK_BLOCK
     def isOffHand: Boolean = event.getHand == EquipmentSlot.OFF_HAND
+  }
+
+  implicit class ActionExtended(action: Action) {
+    import Action._
+    def isRightClick: Boolean = action == RIGHT_CLICK_AIR || action == RIGHT_CLICK_BLOCK
+    def isLeftClick: Boolean = action == LEFT_CLICK_AIR || action == LEFT_CLICK_BLOCK
+    def isPhysical: Boolean = action == PHYSICAL
   }
 
   implicit class ItemStackExtended(itemStack: ItemStack) {
