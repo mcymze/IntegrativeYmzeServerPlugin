@@ -65,6 +65,13 @@ object PlayerInteractEventListener {
     def isOffHand: Boolean = event.getHand == EquipmentSlot.OFF_HAND
   }
 
+  implicit class ActionExtended(action: Action) {
+    import Action._
+    def isRightClick: Boolean = action == RIGHT_CLICK_AIR || action == RIGHT_CLICK_BLOCK
+    def isLeftClick: Boolean = action == LEFT_CLICK_AIR || action == LEFT_CLICK_BLOCK
+    def isPhysical: Boolean = action == PHYSICAL
+  }
+
   implicit class ItemStackExtended(itemStack: ItemStack) {
     def isDragonHead: Boolean = itemStack.getType == Material.DRAGON_HEAD
   }
