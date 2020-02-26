@@ -12,7 +12,7 @@ class PlayerMoveEventListener(implicit service: DragonHeadService) extends Event
     import dev.ekuinox.IntegrativeYmzeServerPlugin.services.dragonhead.ImplicitPlayerExtended._
 
     val player = event.getPlayer
-    if (player.isActiveDragonFlight && player.isOnGround) {
+    if (!player.isActiveDragonFlight && player.isOnGround) {
       player.deactivateDragonFlight()
     }
 
