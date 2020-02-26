@@ -13,6 +13,8 @@ class PlayerMoveEventListener(implicit service: DragonHeadService) extends Event
 
     val player = event.getPlayer
     if (!player.isActiveDragonFlight && player.isOnGround) {
+    // 接地していない場合は無視
+    if (!player.isOnGround) return
       player.deactivateDragonFlight()
     }
 
