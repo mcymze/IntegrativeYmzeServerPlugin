@@ -16,7 +16,11 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 
   @EventHandler
   def onPlayerInteract(event: PlayerInteractEvent): Unit = {
-    (if (event.isRightClick) onRightClick _ else onLeftClick _)(event)
+    if (event.getAction.isRightClick) {
+      onRightClick(event)
+    } else if (event.getAction.isLeftClick) {
+      onLeftClick(event)
+    }
   }
 
   // 右手での使用 -> Fireballの発射
