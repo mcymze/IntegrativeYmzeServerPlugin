@@ -54,6 +54,9 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
     // 左手にドラゴン頭を持っていないと発動しない
     if (player.getInventory.getItemInOffHand.getType != Material.DRAGON_HEAD) return
 
+    // 右手になにか持っていると発動しない
+    if (!player.getInventory.getItemInMainHand.getType.isAir) return
+
     player.setVelocity(player.getEyeLocation.getDirection.multiply(getJetPackMultiplyVelocity))
 
     // 今飛んでますよ～
