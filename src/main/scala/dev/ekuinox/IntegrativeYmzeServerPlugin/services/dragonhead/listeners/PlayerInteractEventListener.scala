@@ -65,7 +65,6 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
 object PlayerInteractEventListener {
   implicit class MatchPlayerInteractEvent(event: PlayerInteractEvent) {
     def getItemOption: Option[ItemStack] = Option(event.getItem)
-    def isRightClick: Boolean = event.getAction == Action.RIGHT_CLICK_AIR || event.getAction == Action.RIGHT_CLICK_BLOCK
     def isOffHand: Boolean = event.getHand == EquipmentSlot.OFF_HAND
   }
 
