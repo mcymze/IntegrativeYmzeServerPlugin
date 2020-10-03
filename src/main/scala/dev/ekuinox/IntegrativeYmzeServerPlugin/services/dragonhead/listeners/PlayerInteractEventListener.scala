@@ -33,6 +33,9 @@ class PlayerInteractEventListener(implicit service: DragonHeadService) extends E
       // ドラゴン頭じゃないと発火しない
       if (!item.isDragonHead) return
 
+      // インタラクト可能なブロックが対象の場合は無効にする
+      if (event.getClickedBlock.getType.isInteractable) return
+
       // どうあれドラゴン頭の右手使用はキャンセルする
       event.setCancelled(true)
 
