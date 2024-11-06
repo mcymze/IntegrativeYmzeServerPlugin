@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin.iml" filepath="$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin-build.iml" filepath="$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin.integrative-ymze-server-plugin-build.iml" filepath="$PROJECT_DIR$/.idea/modules/integrative-ymze-server-plugin.integrative-ymze-server-plugin-build.iml" />
     </modules>
   </component>
 </project>
